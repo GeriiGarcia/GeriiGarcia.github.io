@@ -168,44 +168,134 @@ button{
 
 }
 
+.res{
+    margin:20px;
+}
+
+/*encabezado*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.encabezado {
+    background: #202020;
+    justify-content: space-around;
+}
+
+    .encabezado nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+    }
+
+        .encabezado nav h1 {
+            text-align: center;
+            color: white;
+        }
+
+a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 12px 20px;
+    display: block;
+    text-align: center;
+}
+
+    a:hover {
+        background: #444444;
+    }
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.encabezado nav .menu li ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background: #202020;
+}
+
+.encabezado nav .menu li:hover ul {
+    display: flex;
+    position: absolute;
+} 
+
+.volver{
+    color: #444444;
+}
+
+.volver:hover{
+    color:white;
+}
+
+
     </style>
 
 </head>
 
 <body>
 
-    <p id="Resultado">Hola</p>
+    <div>
 
-    <div id="botonera">
-    <button id="uno" type="button" onclick="output1(1);">1</button>
-    <button id="dos" type="button" onclick="output1(2);">2</button>
-    <button id="tres" type="button" onclick="output1(3);">3</button>
-    <button id="sumar" type="button" onclick="queOp(1)">+</button>
+        <header class="encabezado">
+            <nav>
+                <h1>Gerard's Page</h1>
+                <ul class="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li>
+                        <a href="">Projects</a>
+                        <ul>
+                            <li><a href="calculator.html">Calculator</a></li>
+                            <li><a href="#">Otra cosa</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Contacto</a></li>
+                </ul>
+            </nav>
 
-    <br />
+        </header>
 
-    <button id="cuatro" type="button" onclick="output1(4);">4</button>
-    <button id="cinco" type="button" onclick="output1(5);">5</button>
-    <button id="seis" type="button" onclick="output1(6);">6</button>
-    <button id="restar" type="button" onclick="queOp(2)">-</button>
-
-    <br />
-
-    <button id="siete" type="button" onclick="output1(7);">7</button>
-    <button id="ocho" type="button" onclick="output1(8);">8</button>
-    <button id="nueve" type="button" onclick="output1(9);">9</button>
-    <button id="dividir" type="button" onclick="queOp(3)">/</button>
-
-    <br />
-
-    <button id="cero" type="button" onclick="output1(0)">0</button>
-    <button id="coma" type="button" onclick="queOp(7)">,</button>
-    <button id="AC" type="button" onclick="queOp(6)">AC</button>
-    <button id="multipicar" type="button" onclick="queOp(4)">x</button>
-    <button id="igualar" type="button" onclick="queOp(5)">=</button>
     </div>
 
-    <a href="index.html">Volver</a>
+    <div class="res"><p id="Resultado">Hola</p></div>
+    
+
+    <div id="botonera">
+        <button id="uno" type="button" onclick="output1(1);">1</button>
+        <button id="dos" type="button" onclick="output1(2);">2</button>
+        <button id="tres" type="button" onclick="output1(3);">3</button>
+        <button id="sumar" type="button" onclick="queOp(1)">+</button>
+
+        <br />
+
+        <button id="cuatro" type="button" onclick="output1(4);">4</button>
+        <button id="cinco" type="button" onclick="output1(5);">5</button>
+        <button id="seis" type="button" onclick="output1(6);">6</button>
+        <button id="restar" type="button" onclick="queOp(2)">-</button>
+
+        <br />
+
+        <button id="siete" type="button" onclick="output1(7);">7</button>
+        <button id="ocho" type="button" onclick="output1(8);">8</button>
+        <button id="nueve" type="button" onclick="output1(9);">9</button>
+        <button id="dividir" type="button" onclick="queOp(3)">/</button>
+
+        <br />
+
+        <button id="cero" type="button" onclick="output1(0)">0</button>
+        <button id="coma" type="button" onclick="queOp(7)">,</button>
+        <button id="AC" type="button" onclick="queOp(6)">AC</button>
+        <button id="multipicar" type="button" onclick="queOp(4)">x</button>
+        <button id="igualar" type="button" onclick="queOp(5)">=</button>
+    </div>
+
+    <a class="volver" href="index.html">Volver</a>
 
 
 </body>
