@@ -1,0 +1,242 @@
+<html>
+<head>
+    <title>Calculo de tu edad</title>
+    <meta charset="UTF-8">
+
+    <script>
+        function calcular(d,m,a)
+        {
+            var edad = 0;
+            var diaNacimiento = document.getElementById(d).value;
+            var mesNaciemiento =  document.getElementById(m).value;
+            var añoNaciemiento = document.getElementById(a).value;
+
+            diaNacimiento = parseInt(diaNacimiento,10);
+            mesNaciemiento = parseInt(mesNaciemiento,10);
+            añoNaciemiento = parseInt(añoNaciemiento,10);
+
+            const fecha = new Date();
+            var añoActual = fecha.getFullYear();
+            var mesActual = fecha.getMonth() + 1;
+            var diaActual = fecha.getDay();
+
+            edad = añoActual - añoNaciemiento;
+
+            if (mesNaciemiento > mesActual) {
+                edad--;
+            }
+            else if(mesNaciemiento == mesActual && diaNacimiento > diaActual)
+            {
+                edad--;
+            }
+
+            if(!isNaN(añoNaciemiento) || !isNaN(mesNaciemiento) || !isNaN(diaNacimiento))
+                var t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años";
+            
+            
+        }
+    </script>
+
+    <style>
+            
+        #dia{
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+
+            position: absolute;
+            top: 50%;
+            margin-left: 800px;
+        }
+        #mes{
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+
+            position: absolute;
+            top: 50%;
+            margin-left: 855px;
+        }
+        #año{
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+
+            position: absolute;
+
+            top: 50%;
+            margin-left: 910px;
+        }
+        #testButton{
+            position: absolute;
+            margin-top: 520px;
+            margin-left: -100px;
+            left: 50%;
+        }
+
+        body{
+            background-color: #d5b26c;
+        }
+
+        #TextoPrincipal{
+            width: 500px;
+            height: 200px;
+            position: absolute;
+            left: 42%;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #Texto{
+            align-items: center;
+        }
+        #Orden{
+            align-items: center;
+            margin-left: -70px;
+        }
+
+        #TextoEdad{
+            position: absolute;
+            margin: 400px 0 0 0px;
+            left: 40%;
+        }
+        #testButton{
+            position: absolute;
+            background-color: #e6e6e6;
+            height: 50px;
+            width: 200px;
+            left: 48%;
+            margin-top: 260px;
+        }
+
+        #inputs{
+            position:absolute;
+            margin-left: 35px;
+            margin-top: 200px;
+            
+        }
+        /* Harry Styles*/
+
+
+        /*encabezado*/
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .encabezado {
+            background: #202020;
+            justify-content: space-around;
+            position: static;
+        }
+        .encabezado nav{
+            display: flex;
+            justify-content: space-around;
+            align-items:center;
+            padding: 10px;
+        }
+
+        .encabezado nav h1{
+            text-align: center;
+            color: white;
+        }
+
+        a{
+            text-decoration:none;
+            font-size:20px;
+            color: white;
+            padding: 12px 20px;
+            display: block;
+            text-align:center;
+        }
+
+        a:hover {
+            background: #444444;
+        }
+         
+        ul{
+            list-style:none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .encabezado nav .menu li ul {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            background: #202020;
+        }
+
+        .encabezado nav .menu li:hover ul{
+            display:flex;
+            position:absolute; 
+        } 
+
+.volver{
+    position: absolute;
+    color: #444444;
+    display: flex;
+    margin: 500px 0 0 850px;
+}
+
+.volver:hover{
+    color:white;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div>
+
+        <header class="encabezado">
+            <nav>
+                <h1>Gerard's Page</h1>
+                <ul class="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li>
+                        <a href="">Projects</a>
+                        <ul>
+                            <li><a href="calculator.html">Calculator</a></li>
+                            <li><a href="#">Age Calculator</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Contacto</a></li>
+                </ul>
+            </nav>
+
+        </header>
+
+    </div>
+
+    <div id="TextoPrincipal"> 
+        
+        <h1 id = "Texto">Calcula Tu Edad</h1>
+        <h2 id = "Orden">Introduce tu Fecha de Naciemiento</h2>
+    
+    </div>
+
+    <div id="calculador">
+
+        <div id="inputs">
+
+            <input type="text" id="dia"  value="" placeholder="Dia"/>
+            <input type="text" id="mes"  value="" placeholder="Mes"/>
+            <input type="text" id="año"  value="" placeholder="Año"/>
+
+        </div>
+
+        <button onclick="calcular('dia','mes', 'año')" id="testButton" >Calcular</button>
+    
+    
+    </div>
+
+    <h1 id="TextoEdad"></h1>
+    <a class="volver" href="index.html">Volver</a>
+
+  
+
+
+</body>
+
+</html>
