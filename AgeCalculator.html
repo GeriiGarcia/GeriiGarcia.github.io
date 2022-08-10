@@ -22,13 +22,11 @@
 
             edad = añoActual - añoNaciemiento;
 
-            if (mesNaciemiento > mesActual) {
+            if (mesNaciemiento > mesActual)
                 edad--;
-            }
+            
             else if(mesNaciemiento == mesActual && diaNacimiento > diaActual)
-            {
                 edad--;
-            }
 
             if(!isNaN(añoNaciemiento) && !isNaN(mesNaciemiento) && !isNaN(diaNacimiento))
             {
@@ -177,17 +175,17 @@
             position:absolute; 
         } 
 
-.volver{  
-    color: #444444;
-    /*margin: 400px 0 0 -50px;*/
-    margin: 20% 0 0 -100;
-    
-    
-}
-
-.volver:hover{
-    color:white;
-}
+        .volver{  
+            color: #444444;
+            /*margin: 400px 0 0 -50px;*/
+            margin: 20% 0 0 -100;
+            
+            
+        }
+        
+        .volver:hover{
+            color:white;
+        }
 
     </style>
 </head>
