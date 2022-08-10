@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Calculo de tu edad</title>
+    <title>Age Calculator</title>
     <meta charset="UTF-8">
 
     <script>
@@ -30,8 +30,15 @@
                 edad--;
             }
 
-            if(!isNaN(añoNaciemiento) || !isNaN(mesNaciemiento) || !isNaN(diaNacimiento))
-                var t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años";
+            if(!isNaN(añoNaciemiento) && !isNaN(mesNaciemiento) && !isNaN(diaNacimiento))
+            {
+                if(añoNaciemiento>añoActual || mesNaciemiento > 12 || mesNaciemiento <1)
+                    var t = document.getElementById("TextoEdad").innerHTML = "Fecha Incorrecta";
+                else
+                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años";
+            }
+            else
+                t=document.getElementById("TextoEdad").innerHTML="";
             
             
         }
@@ -171,13 +178,11 @@
             position:absolute; 
         } 
 
-.volver{
-    /*position: static;*/
-    
+.volver{  
     color: #444444;
-    /*display: flex;*/
-    margin: 400px 0 0 -50px;
-    /*text-align: right;*/
+    /*margin: 400px 0 0 -50px;*/
+    margin: 20% 0 0 -100;
+    
     
 }
 
