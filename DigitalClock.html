@@ -1,0 +1,224 @@
+<!--Hacer un boton para amliar y disminuir el tammaño del reloj en otra rama-->
+<!--Añadir temporizador y cronometro-->
+<!--Adaptarlo para moviles-->
+<!--Ponerlo ya en la pagina de github-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script>      
+        var estado = false;
+
+        function noche(){
+            if(estado == false)
+                estado = true;
+            else   
+                estado = false;
+
+            if(estado == true)
+            {
+                document.body.style.backgroundColor = '#101010';
+                document.getElementById("hora").style.color = '#D5D5D5'
+                document.getElementById("minutos").style.color = '#D5D5D5'
+                document.getElementById("segundos").style.color = '#D5D5D5'
+                document.getElementById("punto1").style.color = '#D5D5D5'
+                document.getElementById("punto2").style.color = '#D5D5D5'
+
+                document.getElementById("modoNoche").innerHTML = "Light Mode";
+                document.getElementById("modoNoche").style.color = '#FFFFFF';
+                document.getElementById("modoNoche").style.backgroundColor = '#202020'; 
+                
+            }
+            else
+            {
+                document.body.style.backgroundColor = '#FFFFFF';
+                document.getElementById("hora").style.color = '#000000'
+                document.getElementById("minutos").style.color = '#000000'
+                document.getElementById("segundos").style.color = '#000000'
+                document.getElementById("punto1").style.color = '#000000'
+                document.getElementById("punto2").style.color = '#000000'
+
+                document.getElementById("modoNoche").innerHTML = "Dark Mode";
+                document.getElementById("modoNoche").style.color = '#000000';
+                document.getElementById("modoNoche").style.backgroundColor = '#d8dbe0';
+            }
+        }
+
+
+        setInterval(displayHello, 1000);
+        
+        function displayHello() {
+                var d = new Date();
+                var sec = d.getSeconds();
+                var min = d.getMinutes();
+                var hora = d.getHours();
+
+                //horas
+                if(hora == "0" || hora == "1" || hora == "2" || hora == "3" || hora == "4" || hora == "5" || hora == "6" || hora == "7" || hora == "8" || hora == "9")
+                    document.getElementById("hora").innerHTML = "0" + hora + "";
+                else
+                    document.getElementById("hora").innerHTML = hora + "";
+                
+                //minutos
+                if(min == "0" || min == "1" || min == "2" || min == "3" || min == "4" || min == "5" ||min == "6" || min=="7" || min == "8" || min== "9")
+                    document.getElementById("minutos").innerHTML = "0" + min;
+                else
+                    document.getElementById("minutos").innerHTML = "" + min;
+                
+                //segundos
+                if(sec == "0" || sec == "1" || sec == "2" || sec == "3" || sec == "4" || sec == "5" ||sec == "6" || sec == "7" || sec == "8" || sec == "9")
+                    document.getElementById("segundos").innerHTML = "0" + sec;
+                else
+                    document.getElementById("segundos").innerHTML = "" + sec;
+                               
+          
+        }
+    </script>
+
+    <style>
+        @font-face {
+            font-family: DS-DIGIB;
+            src: url("DS-DIGIB.TTF");
+        }
+        #hora{
+            position: absolute;
+            width: 76px;
+            height: 19px;
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+        }
+        #minutos{
+            position: absolute;
+            width: 76px;
+            height: 19px;
+
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+            left: 140px;
+            /*color: aliceblue;*/
+        }
+        #segundos{
+            position: absolute;
+            width: 112px;
+            height: 19px;
+
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+            left: 280px;
+        }
+
+        body{
+            display: flex;
+            /*justify-content: center;*/
+        }
+
+        #reloj{
+            position: relative;
+            background-color: black;
+            margin-left: 30%;
+            margin-top: 20%;
+            
+        }
+
+        #punto1{
+            position: absolute;
+            margin-left: 110px;
+            margin-top: 95px;
+
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+        }
+        #punto2{
+            position: absolute;
+            margin-left: 250px;
+            margin-top: 95px;
+
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+        }
+
+:root {
+  --light: #d8dbe0;
+  --dark: #28292c;
+  --link: rgb(27, 129, 112);
+  --link-hover: rgb(24, 94, 82);
+}
+
+#botonera{
+    margin-top: 45%;
+    display: inline-block;
+}
+
+.modoNoche {
+  width: 100px;
+  height: 50px;
+  background-color: #d8dbe0;
+  border-radius: 50px;
+  cursor: pointer;
+  color: #000000;
+  text-align: center;
+  border: none;
+}
+
+
+input {
+  position: absolute;
+  display: none;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <div id="botonera">
+
+    <button onclick="noche()" class="modoNoche">
+        <input type = 'checkbox'>
+        <span class = 'slider'></span>
+        Dark Mode
+    </button>
+
+    <button class="modoNoche">
+        <input type = 'checkbox'>
+        <span class = 'slider'></span>
+        Temporizador
+    </button>
+
+    </div>
+
+
+    <div id="reloj">
+        <p id="hora"></p>
+        <p id="punto1">:</p>
+        <p id="minutos"></p>
+        <p id="punto2">:</p>
+        <p id="segundos"></p>
+    </div>
+
+
+
+
+
+
+</body>
+</html>
