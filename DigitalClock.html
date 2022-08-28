@@ -79,86 +79,148 @@
 
     <style>
 
-        @media screen and (max-width: 480px)
-        { 
-            #hora{
-            position: absolute;
-            width: 76px;
-            height: 19px;
-            font-family: 'DS-DIGIB';
-            font-style: normal;
-            font-weight: 400;
-                font-size: 100px;
-                line-height: 15px;
-            }
-            #minutos{
-                position: absolute;
-                width: 76px;
-                height: 19px;
-
-                font-family: 'DS-DIGIB';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 100px;
-                line-height: 15px;
-                left: 140px;
-                /*color: aliceblue;*/
-            }
-            #segundos{
-                position: absolute;
-                width: 112px;
-                height: 19px;
-
-                font-family: 'DS-DIGIB';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 100px;
-                line-height: 15px;
-                left: 280px;
-            }
-
-            body{
-                display: flex;
-                /*justify-content: center;*/
-            }
-
-           
-           #reloj{
-            position: absolute;
-            display: inline-block;
-            
-            /*background-color: aqua;*/
-            top: 40%;
-            width: 20%;
-            }
-
-            #punto1{
-                position: absolute;
-                margin-left: 110px;
-                margin-top: 95px;
-
-                font-family: 'DS-DIGIB';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 100px;
-                line-height: 15px;
-            }
-            #punto2{
-                position: absolute;
-                margin-left: 250px;
-                margin-top: 95px;
-
-                font-family: 'DS-DIGIB';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 100px;
-                line-height: 15px;
-            }
-        }
 
 
 
+@media screen and (min-width: 1024px) and (max-width:2000px) {
+    
 
+    @font-face {
+        font-family: DS-DIGIB;
+        src: url("DS-DIGIB.TTF");
+    }
+    #hora{
+        position: absolute;
+        display: flexbox;
+        width: 76px;
+        height: 19px;
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+        
+    }
+    #minutos{
+        position: absolute;
+        display: flexbox;
+        width: 76px;
+        height: 19px;
+
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+        left: 140px;
+        
+    }
+    #segundos{
+        position: absolute;
+        display: flexbox;
+        width: 112px;
+        height: 19px;
+
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+        left: 280px;
+        
+    }
+
+    body{
+        display: flex;
+        justify-content: center;
+        
+    }
+
+    #reloj{
+        position: absolute;
+        display: inline-block;
+        
+        /*background-color: aqua;*/
+        top: 40%;
+        width: 20%;
+        
+        
+    }
+
+    #punto1{
+        position: absolute;
+        margin-left: 110px;
+        margin-top: 95px;
+        display: flexbox;
+
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+    }
+    #punto2{
+        position: absolute;
+        margin-left: 250px;
+        margin-top: 95px;
+        display: flexbox;
+
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+    }
+
+:root {
+--light: #d8dbe0;
+--dark: #28292c;
+--link: rgb(27, 129, 112);
+--link-hover: rgb(24, 94, 82);
+}
+
+#botonera{
+bottom: 0px;
+display: inline-block;
+position: absolute;
+}
+
+#modoNoche {
+width: 100px;
+height: 50px;
+background-color: #d8dbe0;
+border-radius: 50px;
+cursor: pointer;
+color: #000000;
+text-align: center;
+border: none;
+}
+
+#temporizador
+{
+width: 100px;
+height: 50px;
+background-color: #d8dbe0;
+border-radius: 50px;
+cursor: pointer;
+color: #000000;
+text-align: center;
+border: none;
+}
+
+
+input {
+position: absolute;
+display: none;
+}
+
+}
+
+
+
+
+@media screen and (min-width: 480px) and (max-width:1024px) {
+    
 
         @font-face {
             font-family: DS-DIGIB;
@@ -207,17 +269,15 @@
 
         body{
             display: flex;
-            justify-content: center;
+            justify-content: center;  
         }
 
         #reloj{
             position: absolute;
             display: inline-block;
-            
-            /*background-color: aqua;*/
             top: 40%;
-            width: 20%;
-            
+            width: 40%;
+            /*height: 200px;*/
             
         }
 
@@ -254,32 +314,38 @@
 }
 
 #botonera{
-    bottom: 0px;
+    top: 80%;
     display: inline-block;
     position: absolute;
+    justify-content: center;
+    height: 400px;
+    
+    
 }
 
 #modoNoche {
-  width: 100px;
-  height: 50px;
+  width: 100%;
+  height: 20%;
   background-color: #d8dbe0;
   border-radius: 50px;
   cursor: pointer;
   color: #000000;
   text-align: center;
   border: none;
+  font-size: 30px;
 }
 
 #temporizador
 {
-    width: 100px;
-  height: 50px;
+    width: 100%;
+  height: 20%;
   background-color: #d8dbe0;
   border-radius: 50px;
   cursor: pointer;
   color: #000000;
   text-align: center;
   border: none;
+  font-size: 30px;
 }
 
 
@@ -288,29 +354,14 @@ input {
   display: none;
 }
 
-
+}
 
 
     </style>
 </head>
 <body>
 
-    <div id="botonera">
-
-    <button onclick="noche()" id="modoNoche">
-        <input type = 'checkbox'>
-        <span class = 'slider'></span>
-        Dark Mode
-    </button>
-
-    <button id="temporizador">
-        <input type = 'checkbox'>
-        <span class = 'slider'></span>
-        Temporizador
-    </button>
-
-    </div>
-
+ 
     
     <div id="reloj">
         <p id="hora"></p>
@@ -322,6 +373,22 @@ input {
 
     </div>
 
+    <div id="botonera">
+
+        <button onclick="noche()" id="modoNoche">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            Dark Mode
+        </button>
+    
+        <button id="temporizador">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            Temporizador
+        </button>
+    
+        </div>
+    
 
 </body>
 </html>
