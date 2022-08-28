@@ -10,6 +10,8 @@
 
     <script>      
         var estado = false;
+        let modos = ["Reloj", "Temporizador" ];
+        let mode = modos[0];
 
         function noche(){
             if(estado == false)
@@ -46,15 +48,52 @@
             }
         }
 
-
-        setInterval(displayHello, 1000);
         
+        setInterval(displayHello, 1000);
         function displayHello() {
+
+
                 var d = new Date();
                 var sec = d.getSeconds();
                 var min = d.getMinutes();
                 var hora = d.getHours();
 
+                if(mode == "Reloj")
+                {
+                    //horas
+                    if(hora == "0" || hora == "1" || hora == "2" || hora == "3" || hora == "4" || hora == "5" || hora == "6" || hora == "7" || hora == "8" || hora == "9")
+                        document.getElementById("hora").innerHTML = "0" + hora + "";
+                    else
+                        document.getElementById("hora").innerHTML = hora + "";
+
+                    //minutos
+                    if(min == "0" || min == "1" || min == "2" || min == "3" || min == "4" || min == "5" ||min == "6" || min=="7" || min == "8" || min== "9")
+                        document.getElementById("minutos").innerHTML = "0" + min;
+                    else
+                        document.getElementById("minutos").innerHTML = "" + min;
+
+                    //segundos
+                    if(sec == "0" || sec == "1" || sec == "2" || sec == "3" || sec == "4" || sec == "5" ||sec == "6" || sec == "7" || sec == "8" || sec == "9")
+                        document.getElementById("segundos").innerHTML = "0" + sec;
+                    else
+                        document.getElementById("segundos").innerHTML = "" + sec;
+                }
+                else
+                {
+                    temporizador();
+                }
+                               
+          
+        }
+
+        function temporizador() {
+           
+                mode = modos[1];
+
+
+            var sec = 0;
+            var min = 0;
+            var hora = 0;
                 //horas
                 if(hora == "0" || hora == "1" || hora == "2" || hora == "3" || hora == "4" || hora == "5" || hora == "6" || hora == "7" || hora == "8" || hora == "9")
                     document.getElementById("hora").innerHTML = "0" + hora + "";
@@ -72,8 +111,7 @@
                     document.getElementById("segundos").innerHTML = "0" + sec;
                 else
                     document.getElementById("segundos").innerHTML = "" + sec;
-                               
-          
+
         }
     </script>
 
@@ -381,7 +419,7 @@ input {
             Dark Mode
         </button>
     
-        <button id="temporizador">
+        <button onclick="temporizador()" id="temporizador">
             <input type = 'checkbox'>
             <span class = 'slider'></span>
             Temporizador
