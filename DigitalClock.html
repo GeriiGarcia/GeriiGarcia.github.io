@@ -78,12 +78,93 @@
     </script>
 
     <style>
+
+        @media screen and (max-width: 480px)
+        { 
+            #hora{
+            position: absolute;
+            width: 76px;
+            height: 19px;
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+                font-size: 100px;
+                line-height: 15px;
+            }
+            #minutos{
+                position: absolute;
+                width: 76px;
+                height: 19px;
+
+                font-family: 'DS-DIGIB';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 100px;
+                line-height: 15px;
+                left: 140px;
+                /*color: aliceblue;*/
+            }
+            #segundos{
+                position: absolute;
+                width: 112px;
+                height: 19px;
+
+                font-family: 'DS-DIGIB';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 100px;
+                line-height: 15px;
+                left: 280px;
+            }
+
+            body{
+                display: flex;
+                /*justify-content: center;*/
+            }
+
+           #reloj{
+                position: relative;
+                display: inline-block;
+                background-color: black;
+                /*margin-left: 30%;
+                margin-top: 20%;*/
+            }
+
+            #punto1{
+                position: absolute;
+                margin-left: 110px;
+                margin-top: 95px;
+
+                font-family: 'DS-DIGIB';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 100px;
+                line-height: 15px;
+            }
+            #punto2{
+                position: absolute;
+                margin-left: 250px;
+                margin-top: 95px;
+
+                font-family: 'DS-DIGIB';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 100px;
+                line-height: 15px;
+            }
+        }
+
+
+
+
+
         @font-face {
             font-family: DS-DIGIB;
             src: url("DS-DIGIB.TTF");
         }
         #hora{
             position: absolute;
+            display: flexbox;
             width: 76px;
             height: 19px;
             font-family: 'DS-DIGIB';
@@ -91,9 +172,11 @@
             font-weight: 400;
             font-size: 100px;
             line-height: 15px;
+            
         }
         #minutos{
             position: absolute;
+            display: flexbox;
             width: 76px;
             height: 19px;
 
@@ -103,10 +186,11 @@
             font-size: 100px;
             line-height: 15px;
             left: 140px;
-            /*color: aliceblue;*/
+            
         }
         #segundos{
             position: absolute;
+            display: flexbox;
             width: 112px;
             height: 19px;
 
@@ -116,18 +200,22 @@
             font-size: 100px;
             line-height: 15px;
             left: 280px;
+            
         }
 
         body{
             display: flex;
-            /*justify-content: center;*/
+            justify-content: center;
         }
 
         #reloj{
-            position: relative;
-            background-color: black;
-            margin-left: 30%;
-            margin-top: 20%;
+            position: absolute;
+            display: inline-block;
+            
+            /*background-color: aqua;*/
+            top: 40%;
+            width: 20%;
+            
             
         }
 
@@ -135,6 +223,7 @@
             position: absolute;
             margin-left: 110px;
             margin-top: 95px;
+            display: flexbox;
 
             font-family: 'DS-DIGIB';
             font-style: normal;
@@ -146,6 +235,7 @@
             position: absolute;
             margin-left: 250px;
             margin-top: 95px;
+            display: flexbox;
 
             font-family: 'DS-DIGIB';
             font-style: normal;
@@ -162,12 +252,25 @@
 }
 
 #botonera{
-    margin-top: 45%;
+    margin-top: 40%;
     display: inline-block;
+    position: absolute;
 }
 
-.modoNoche {
+#modoNoche {
   width: 100px;
+  height: 50px;
+  background-color: #d8dbe0;
+  border-radius: 50px;
+  cursor: pointer;
+  color: #000000;
+  text-align: center;
+  border: none;
+}
+
+#temporizador
+{
+    width: 100px;
   height: 50px;
   background-color: #d8dbe0;
   border-radius: 50px;
@@ -192,13 +295,13 @@ input {
 
     <div id="botonera">
 
-    <button onclick="noche()" class="modoNoche">
+    <button onclick="noche()" id="modoNoche">
         <input type = 'checkbox'>
         <span class = 'slider'></span>
         Dark Mode
     </button>
 
-    <button class="modoNoche">
+    <button id="temporizador">
         <input type = 'checkbox'>
         <span class = 'slider'></span>
         Temporizador
@@ -206,14 +309,18 @@ input {
 
     </div>
 
-
+    
     <div id="reloj">
         <p id="hora"></p>
         <p id="punto1">:</p>
         <p id="minutos"></p>
         <p id="punto2">:</p>
         <p id="segundos"></p>
+    
+
     </div>
+
+    
 
 
 
