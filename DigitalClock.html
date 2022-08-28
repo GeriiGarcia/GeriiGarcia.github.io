@@ -86,11 +86,15 @@
           
         }
 
+        function changeMode(){
+            if(mode == modos[0])
+                mode = modos[1];
+            else
+                mode = modos[0];
+        }
+
         function temporizador() {
            
-                mode = modos[1];
-
-
             var sec = 0;
             var min = 0;
             var hora = 0;
@@ -419,7 +423,7 @@ input {
             Dark Mode
         </button>
     
-        <button onclick="temporizador()" id="temporizador">
+        <button onclick="changeMode()" id="temporizador">
             <input type = 'checkbox'>
             <span class = 'slider'></span>
             Temporizador
