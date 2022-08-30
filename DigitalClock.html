@@ -1,7 +1,8 @@
 <!--Hacer un boton para amliar y disminuir el tammaño del reloj en otra rama-->
 <!--Añadir temporizador y cronometro-->
 <!--Adaptarlo para moviles-->
-<!--Ponerlo ya en la pagina de github-->
+<!--Poner boton de play bonito-->
+<!--Hacer que no aparezca el boton de play al iniciar la pagina-->
 
 <!DOCTYPE html>
 <html>
@@ -31,6 +32,12 @@
                 document.getElementById("modoNoche").innerHTML = "Light Mode";
                 document.getElementById("modoNoche").style.color = '#FFFFFF';
                 document.getElementById("modoNoche").style.backgroundColor = '#202020'; 
+                document.getElementById("temporizador").style.backgroundColor = '#202020';
+                document.getElementById("temporizador").style.color = '#FFFFFF'
+
+                document.getElementById("Parar").style.backgroundColor = '#202020';
+                document.getElementById("Parar").style.color = '#FFFFFF'
+                
                 
             }
             else
@@ -45,6 +52,11 @@
                 document.getElementById("modoNoche").innerHTML = "Dark Mode";
                 document.getElementById("modoNoche").style.color = '#000000';
                 document.getElementById("modoNoche").style.backgroundColor = '#d8dbe0';
+                document.getElementById("temporizador").style.backgroundColor = '#d8dbe0';
+                document.getElementById("temporizador").style.color = '#000000'
+
+                document.getElementById("Parar").style.color = '#000000'
+                document.getElementById("Parar").style.backgroundColor = '#d8dbe0';
             }
         }
 
@@ -60,6 +72,7 @@
 
                 if(mode == "Reloj")
                 {
+                    document.getElementById("Parar").style.display = "none";
                     //horas
                     if(hora == "0" || hora == "1" || hora == "2" || hora == "3" || hora == "4" || hora == "5" || hora == "6" || hora == "7" || hora == "8" || hora == "9")
                         document.getElementById("hora").innerHTML = "0" + hora + "";
@@ -81,6 +94,7 @@
                 else
                 {
                     temporizador();
+                    document.getElementById("Parar").style.display = "initial";
                 }
                                
           
@@ -92,29 +106,71 @@
             else
                 mode = modos[0];
         }
+        function changeParado()
+        {
+            if(paradoC == true)
+                paradoC = false;
+            else
+                paradoC = true;
+
+            if(paradoC == true)
+                document.getElementById("Parar").innerHTML = "Play";
+            else
+                document.getElementById("Parar").innerHTML = "Pause";
+        }
+
+        var secC = 0;
+        var minC = 0;
+        var horaC = 0;
+        let paradoC = true;
+
+        function enMarcha()
+        {
+            if(paradoC == false) //poner en false al acabar, el true es solo para probar de momento
+            {
+                if(secC == 59)
+                {
+                    secC = 0;
+                    if(minC == 59)
+                    {
+                        minC = 0;
+                        if(horaC == 99)
+                        {
+                            minC=0;
+                            secC=0;
+                            horaC=0;
+                        }
+                        else 
+                            horaC++;
+                    }
+                    else
+                        minC++;
+                }    
+                else
+                    secC++;
+            }    
+        }
 
         function temporizador() {
            
-            var sec = 0;
-            var min = 0;
-            var hora = 0;
+            enMarcha();
                 //horas
-                if(hora == "0" || hora == "1" || hora == "2" || hora == "3" || hora == "4" || hora == "5" || hora == "6" || hora == "7" || hora == "8" || hora == "9")
-                    document.getElementById("hora").innerHTML = "0" + hora + "";
+                if(horaC == "0" || horaC == "1" || horaC == "2" || horaC == "3" || horaC == "4" || horaC == "5" || horaC == "6" || horaC == "7" || horaC == "8" || horaC == "9")
+                    document.getElementById("hora").innerHTML = "0" + horaC + "";
                 else
-                    document.getElementById("hora").innerHTML = hora + "";
+                    document.getElementById("hora").innerHTML = horaC + "";
                 
                 //minutos
-                if(min == "0" || min == "1" || min == "2" || min == "3" || min == "4" || min == "5" ||min == "6" || min=="7" || min == "8" || min== "9")
-                    document.getElementById("minutos").innerHTML = "0" + min;
+                if(minC == "0" || minC == "1" || minC == "2" || minC == "3" || minC == "4" || minC == "5" ||minC == "6" || minC == "7" || minC == "8" || minC == "9")
+                    document.getElementById("minutos").innerHTML = "0" + minC;
                 else
-                    document.getElementById("minutos").innerHTML = "" + min;
+                    document.getElementById("minutos").innerHTML = "" + minC;
                 
                 //segundos
-                if(sec == "0" || sec == "1" || sec == "2" || sec == "3" || sec == "4" || sec == "5" ||sec == "6" || sec == "7" || sec == "8" || sec == "9")
-                    document.getElementById("segundos").innerHTML = "0" + sec;
+                if(secC == "0" || secC == "1" || secC == "2" || secC == "3" || secC == "4" || secC == "5" ||secC == "6" || secC == "7" || secC == "8" || secC == "9")
+                    document.getElementById("segundos").innerHTML = "0" + secC;
                 else
-                    document.getElementById("segundos").innerHTML = "" + sec;
+                    document.getElementById("segundos").innerHTML = "" + secC;
 
         }
     </script>
@@ -155,6 +211,7 @@
         font-size: 100px;
         line-height: 15px;
         left: 140px;
+
         
     }
     #segundos{
@@ -175,18 +232,24 @@
     body{
         display: flex;
         justify-content: center;
-        
+    }
+
+    #Parar{
+    width: 100px;
+    height: 50px;
+    background-color: #d8dbe0;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #000000;
+    text-align: center;
+    border: none;
     }
 
     #reloj{
-        position: absolute;
-        display: inline-block;
-        
+        position: absolute;        
         /*background-color: aqua;*/
         top: 40%;
-        width: 20%;
-        
-        
+        width: 20%;        
     }
 
     #punto1{
@@ -214,6 +277,11 @@
         line-height: 15px;
     }
 
+    #cajonPlay{
+            position: absolute;
+            top: 60%;
+    }
+
 :root {
 --light: #d8dbe0;
 --dark: #28292c;
@@ -226,6 +294,7 @@ bottom: 0px;
 display: inline-block;
 position: absolute;
 }
+
 
 #modoNoche {
 width: 100px;
@@ -348,6 +417,24 @@ display: none;
             line-height: 15px;
         }
 
+        #Parar{
+            width: 100%;
+            height: 20%;
+            background-color: #d8dbe0;
+            border-radius: 50px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            font-size: 30px;
+        }
+
+        #cajonPlay{
+            position: absolute;
+            top: 55%;
+            width: 200px;
+    }
+
 :root {
   --light: #d8dbe0;
   --dark: #28292c;
@@ -411,7 +498,19 @@ input {
         <p id="minutos"></p>
         <p id="punto2">:</p>
         <p id="segundos"></p>
-    
+        
+
+    </div>
+
+   
+
+    <div id="cajonPlay">
+
+        <button onclick="changeParado()" id="Parar">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            Play
+        </button>
 
     </div>
 
