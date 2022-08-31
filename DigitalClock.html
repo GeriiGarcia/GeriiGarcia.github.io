@@ -1,17 +1,17 @@
 <!--Hacer un boton para amliar y disminuir el tammaño del reloj en otra rama-->
-<!--Añadir temporizador y cronometro-->
+<!--Añadir cronometro-->
 <!--Adaptarlo para moviles-->
-<!--Poner boton de play bonito-->
-<!--Hacer que no aparezca el boton de play al iniciar la pagina-->
+<!--Poner boton de play y reset bonito-->
 
 <!DOCTYPE html>
 <html>
 
 <head>
-
+    <title>Digital Clock</title>
     <script>      
+        
         var estado = false;
-        let modos = ["Reloj", "Temporizador" ];
+        let modos = ["Reloj", "cronometro" ];
         let mode = modos[0];
 
         function noche(){
@@ -32,11 +32,13 @@
                 document.getElementById("modoNoche").innerHTML = "Light Mode";
                 document.getElementById("modoNoche").style.color = '#FFFFFF';
                 document.getElementById("modoNoche").style.backgroundColor = '#202020'; 
-                document.getElementById("temporizador").style.backgroundColor = '#202020';
-                document.getElementById("temporizador").style.color = '#FFFFFF'
+                document.getElementById("cronometro").style.backgroundColor = '#202020';
+                document.getElementById("cronometro").style.color = '#FFFFFF'
 
                 document.getElementById("Parar").style.backgroundColor = '#202020';
                 document.getElementById("Parar").style.color = '#FFFFFF'
+                document.getElementById("Reset").style.backgroundColor = '#202020';
+                document.getElementById("Reset").style.color = '#FFFFFF'
                 
                 
             }
@@ -52,14 +54,15 @@
                 document.getElementById("modoNoche").innerHTML = "Dark Mode";
                 document.getElementById("modoNoche").style.color = '#000000';
                 document.getElementById("modoNoche").style.backgroundColor = '#d8dbe0';
-                document.getElementById("temporizador").style.backgroundColor = '#d8dbe0';
-                document.getElementById("temporizador").style.color = '#000000'
+                document.getElementById("cronometro").style.backgroundColor = '#d8dbe0';
+                document.getElementById("cronometro").style.color = '#000000'
 
                 document.getElementById("Parar").style.color = '#000000'
                 document.getElementById("Parar").style.backgroundColor = '#d8dbe0';
+                document.getElementById("Reset").style.color = '#000000'
+                document.getElementById("Reset").style.backgroundColor = '#d8dbe0';
             }
         }
-
         
         setInterval(displayHello, 1000);
         function displayHello() {
@@ -73,6 +76,8 @@
                 if(mode == "Reloj")
                 {
                     document.getElementById("Parar").style.display = "none";
+                    document.getElementById("Reset").style.display = "none";
+                    document.getElementById("cronometro").innerHTML = "Cronómetro";
                     //horas
                     if(hora == "0" || hora == "1" || hora == "2" || hora == "3" || hora == "4" || hora == "5" || hora == "6" || hora == "7" || hora == "8" || hora == "9")
                         document.getElementById("hora").innerHTML = "0" + hora + "";
@@ -93,8 +98,10 @@
                 }
                 else
                 {
-                    temporizador();
+                    cronometro();
+                    document.getElementById("cronometro").innerHTML = "Reloj";
                     document.getElementById("Parar").style.display = "initial";
+                    document.getElementById("Reset").style.display = "initial";
                 }
                                
           
@@ -151,7 +158,15 @@
             }    
         }
 
-        function temporizador() {
+        function Reset(){
+            secC = 0;
+            minC = 0;
+            horaC = 0;
+            if(paradoC == false)
+                changeParado();
+        }
+
+        function cronometro() {
            
             enMarcha();
                 //horas
@@ -235,16 +250,27 @@
     }
 
     #Parar{
-    width: 100px;
-    height: 50px;
-    background-color: #d8dbe0;
-    border-radius: 50px;
-    cursor: pointer;
-    color: #000000;
-    text-align: center;
-    border: none;
+        width: 100px;
+        height: 50px;
+        background-color: #d8dbe0;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #000000;
+        text-align: center;
+        border: none;
+        display: none;
     }
-
+    #Reset{
+        width: 100px;
+        height: 50px;
+        background-color: #d8dbe0;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #000000;
+        text-align: center;
+        border: none;
+        display: none;
+    }
     #reloj{
         position: absolute;        
         /*background-color: aqua;*/
@@ -307,7 +333,7 @@ text-align: center;
 border: none;
 }
 
-#temporizador
+#cronometro
 {
 width: 100px;
 height: 50px;
@@ -427,6 +453,20 @@ display: none;
             text-align: center;
             border: none;
             font-size: 30px;
+            display: none;
+        }
+
+        #Reset{
+            width: 100%;
+            height: 20%;
+            background-color: #d8dbe0;
+            border-radius: 50px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            font-size: 30px;
+            display: none;
         }
 
         #cajonPlay{
@@ -464,7 +504,7 @@ display: none;
   font-size: 30px;
 }
 
-#temporizador
+#cronometro
 {
     width: 100%;
   height: 20%;
@@ -512,6 +552,12 @@ input {
             Play
         </button>
 
+        <button onclick="Reset()" id="Reset">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            Reset
+        </button>
+
     </div>
 
     <div id="botonera">
@@ -522,10 +568,10 @@ input {
             Dark Mode
         </button>
     
-        <button onclick="changeMode()" id="temporizador">
+        <button onclick="changeMode()" id="cronometro">
             <input type = 'checkbox'>
             <span class = 'slider'></span>
-            Temporizador
+            Cronómetro
         </button>
     
         </div>
