@@ -202,7 +202,7 @@
                     m.value = minT;    
                 }
 
-                if((minT != 0 || horaT != 0) && secT != 0)
+                if((minT.length != 0 && horaT.length != 0) && secT.length != 0)
                 {
                     if(paradoT == true)
                         paradoT = false;
@@ -299,30 +299,40 @@
 
         function enMarchaT()
         {
-            
-            if(paradoT == false && (minT>=0 && minT<=59 && secT>=0 && secT<=59 && horaT >= 0))
+            if(!(minT == 0 && secT == 0 && horaT == 0))
             {
-                if(secT == 00) 
+                if(paradoT == false && (minT>=0 && minT<=59 && secT>=00 && secT<=59 && horaT >= 0))
                 {
-                    secT = 59;
-                    if(minT == 00 && horaT != 00) 
+                    if(secT == 00) 
                     {
-                        minT = 59;
-                        if(horaT != 00)
+                        secT = 59;
+                        if(minT == 00 && horaT != 00) 
                         {
-                            horaT--;
-                        }
+                            minT = 59;
+                            if(horaT != 00)
+                            {
+                                horaT--;
+                            }
 
+                        }
+                        else if(minT!=00)
+                        {
+                            minT--;
+                        }
                     }
-                    else if(minT!=00)
-                    {
-                        minT--;
-                    }
+                    else
+                        secT--;
                 }
-                else
-                    secT--;
+                else if (paradoT == false && (minT == 0 && secT == 0 && horaT == 0))
+                {
+                    paradoT = true;
+                    document.getElementById("Parar").innerHTML = "Play";
+                    horaT = 0;
+                    minT = 0;
+                    secT = 0;
+                }
             }
-            else if (paradoT == false && (minT == 0 && secT == 0 && horaT == 0))
+            else
             {
                 paradoT = true;
                 document.getElementById("Parar").innerHTML = "Play";
@@ -330,6 +340,7 @@
                 minT = 0;
                 secT = 0;
             }
+
         }
 
         function temporizador()
@@ -367,14 +378,19 @@
         font-family: DS-DIGIB;
         src: url("DS-DIGIB.TTF");
     }
-    body{
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    
+    #todo{
         display: grid;
         place-items: center;
     }
     #reloj{
         position: absolute;        
         /*background-color: aqua;*/
-        top: 40%;
+        top: 50%;
         width: 380px;
         height:50px;
               
@@ -425,7 +441,7 @@
     #punto1{
         position: absolute;
         margin-left: 110px;
-        margin-top: 95px;
+
         display: flexbox;
 
         font-family: 'DS-DIGIB';
@@ -437,7 +453,6 @@
     #punto2{
         position: absolute;
         margin-left: 250px;
-        margin-top: 95px;
         display: flexbox;
 
         font-family: 'DS-DIGIB';
@@ -448,8 +463,9 @@
     }
 
     #cajonInputs{
+        margin-top: -80px;
         display: inline-block;
-        position: relative;
+        position: absolute;
     }
 
     #hT{
@@ -599,6 +615,56 @@ position: absolute;
 display: none;
 }
 
+/*encabezado ------------------------------------------------------------------------------------------------------------*/
+
+.encabezado {
+    background: #202020;
+    justify-content: space-around;
+}
+
+    .encabezado nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+    }
+
+        .encabezado nav h1 {
+            text-align: center;
+            color: white;
+        }
+
+a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 12px 20px;
+    display: block;
+    text-align: center;
+}
+
+    a:hover {
+        background: #444444;
+    }
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.encabezado nav .menu li ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background: #202020;
+}
+
+.encabezado nav .menu li:hover ul {
+    display: flex;
+    position: absolute;
+} 
+
 }
 
 @media screen and (min-width: 480px) and (max-width:1024px) {
@@ -609,10 +675,16 @@ display: none;
             src: url("DS-DIGIB.TTF");
         }
 
-        body{
-            display: flex;
-            justify-content: center;  
+        *{
+            margin: 0;
+            padding: 0;
         }
+    
+        #todo{
+        display: grid;
+        place-items: center;
+        }
+
 
         #reloj{
             position: absolute;
@@ -667,7 +739,6 @@ display: none;
         #punto1{
             position: absolute;
             margin-left: 110px;
-            margin-top: 95px;
             display: flexbox;
 
             font-family: 'DS-DIGIB';
@@ -679,7 +750,6 @@ display: none;
         #punto2{
             position: absolute;
             margin-left: 250px;
-            margin-top: 95px;
             display: flexbox;
 
             font-family: 'DS-DIGIB';
@@ -691,7 +761,8 @@ display: none;
 
         #cajonInputs{
         display: inline-block;
-        position: relative;
+        position: absolute;
+        top: -80px;
         }
 
         #hT{
@@ -831,15 +902,94 @@ input {
   display: none;
 }
 
+/*encabezado ----------------------------------------------------------------------------------------------------------------------------*/
+
+.encabezado {
+    width: 100%;
+    background: #202020;
+    justify-content: space-around;
 }
+
+    .encabezado nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+    }
+
+        .encabezado nav h1 {
+            text-align: center;
+            color: white;
+        }
+
+a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 12px 20px;
+    display: block;
+    text-align: center;
+}
+
+    a:hover {
+        background: #444444;
+    }
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.encabezado nav .menu li ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background: #202020;
+}
+
+.encabezado nav .menu li:hover ul {
+    display: flex;
+    position: absolute;
+} 
+
+}
+
 
 
     </style>
 </head>
-<body>
 
+
+
+<div>
+
+    <header class="encabezado">
+        <nav>
+            <h1>Gerard's Page</h1>
+            <ul class="menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li>
+                    <a href="">Projects</a>
+                    <ul>
+                        <li><a href="calculator.html">Calculator</a></li>
+                        <li><a href="AgeCalculator.html">Age Calculator</a></li>
+                        <li><a href="DigitalClock.html">Digital Clock</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Contacto</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+</div>
+
+<div id="todo">
+
+
+<body>
  
-    
     <div id="reloj">
         <p id="hora"></p>
         <p id="punto1">:</p>
@@ -900,4 +1050,5 @@ input {
     
 
 </body>
+</div>
 </html>
