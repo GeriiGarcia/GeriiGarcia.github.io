@@ -1,4 +1,4 @@
-<!--Hacer un boton para amliar y disminuir el tammaño del reloj en otra rama-->s
+<!--Hacer un boton para amliar y disminuir el tammaño del reloj en otra rama-->
 <!--Adaptarlo mas para moviles (encabezado)-->
 
 <!DOCTYPE html>
@@ -21,63 +21,63 @@
             if(estado == true)
             {
                 document.body.style.backgroundColor = '#101010';
-                document.getElementById("hora").style.color = '#D5D5D5'
-                document.getElementById("minutos").style.color = '#D5D5D5'
-                document.getElementById("segundos").style.color = '#D5D5D5'
-                document.getElementById("punto1").style.color = '#D5D5D5'
-                document.getElementById("punto2").style.color = '#D5D5D5'
+                document.getElementById("hora").style.color = '#D5D5D5';
+                document.getElementById("minutos").style.color = '#D5D5D5';
+                document.getElementById("segundos").style.color = '#D5D5D5';
+                document.getElementById("punto1").style.color = '#D5D5D5';
+                document.getElementById("punto2").style.color = '#D5D5D5';
 
                 document.getElementById("modoNoche").innerHTML = "Light Mode";
                 document.getElementById("modoNoche").style.color = '#FFFFFF';
                 document.getElementById("modoNoche").style.backgroundColor = '#202020'; 
                 document.getElementById("cronometro").style.backgroundColor = '#202020';
-                document.getElementById("cronometro").style.color = '#FFFFFF'
+                document.getElementById("cronometro").style.color = '#FFFFFF';
                 document.getElementById("temporizador").style.backgroundColor = '#202020';
-                document.getElementById("temporizador").style.color = '#FFFFFF'
+                document.getElementById("temporizador").style.color = '#FFFFFF';
 
                 document.getElementById("Parar").style.backgroundColor = '#202020';
-                document.getElementById("Parar").style.color = '#FFFFFF'
+                document.getElementById("Parar").style.color = '#FFFFFF';
                 document.getElementById("Reset").style.backgroundColor = '#202020';
-                document.getElementById("Reset").style.color = '#FFFFFF'
+                document.getElementById("Reset").style.color = '#FFFFFF';
 
                 document.getElementById("hT").style.backgroundColor = '#101010';
                 document.getElementById("mT").style.backgroundColor = '#101010';
                 document.getElementById("sT").style.backgroundColor = '#101010';
-                docuemnt.getElementById("hT").style.color = '#FFFFFF';
-                docuemnt.getElementById("mT").style.color = '#FFFFFF';
-                docuemnt.getElementById("sT").style.color = '#FFFFFF';
+                document.getElementById("sT").style.color = 'white';
+                document.getElementById("mT").style.color = 'white';
+                document.getElementById("hT").style.color = 'white';
                 
                 
             }
             else
             {
                 document.body.style.backgroundColor = '#FFFFFF';
-                document.getElementById("hora").style.color = '#000000'
-                document.getElementById("minutos").style.color = '#000000'
-                document.getElementById("segundos").style.color = '#000000'
-                document.getElementById("punto1").style.color = '#000000'
-                document.getElementById("punto2").style.color = '#000000'
+                document.getElementById("hora").style.color = '#000000';
+                document.getElementById("minutos").style.color = '#000000';
+                document.getElementById("segundos").style.color = '#000000';
+                document.getElementById("punto1").style.color = '#000000';
+                document.getElementById("punto2").style.color = '#000000';
 
                 document.getElementById("modoNoche").innerHTML = "Dark Mode";
                 document.getElementById("modoNoche").style.color = '#000000';
                 document.getElementById("modoNoche").style.backgroundColor = '#d8dbe0';
                 document.getElementById("cronometro").style.backgroundColor = '#d8dbe0';
-                document.getElementById("cronometro").style.color = '#000000'
+                document.getElementById("cronometro").style.color = '#000000';
                 document.getElementById("temporizador").style.backgroundColor = '#d8dbe0';
-                document.getElementById("temporizador").style.color = '#000000'
+                document.getElementById("temporizador").style.color = '#000000';
 
-                document.getElementById("Parar").style.color = '#000000'
+                document.getElementById("Parar").style.color = '#000000';
                 document.getElementById("Parar").style.backgroundColor = '#d8dbe0';
-                document.getElementById("Reset").style.color = '#000000'
+                document.getElementById("Reset").style.color = '#000000';
                 document.getElementById("Reset").style.backgroundColor = '#d8dbe0';
 
+                document.getElementById("sT").style.color = 'black';
+                document.getElementById("mT").style.color = 'black';
+                document.getElementById("hT").style.color = 'black';
                 document.getElementById("hT").style.backgroundColor = 'white';
                 document.getElementById("mT").style.backgroundColor = 'white';
                 document.getElementById("sT").style.backgroundColor = 'white';
-                docuemnt.getElementById("hT").style.color = '#000000';
-                docuemnt.getElementById("mT").style.color = '#000000';
-                docuemnt.getElementById("sT").style.color = 'red';
-                
+
 
             }
         }
@@ -123,10 +123,6 @@
                     document.getElementById("cronometro").innerHTML = "Reloj";
                     document.getElementById("Parar").style.display = "initial";
                     document.getElementById("Reset").style.display = "initial";
-
-                    /*document.getElementById("hora").style.opacity = "initial";
-                    document.getElementById("minutos").style.opacity = "initial";
-                    document.getElementById("segundos").style.opacity = "initial";*/
 
                     document.getElementById("hT").style.display = "none";
                     document.getElementById("mT").style.display = "none";
@@ -610,6 +606,7 @@ border: none;
 input {
 position: absolute;
 display: none;
+
 }
 
 /*encabezado ------------------------------------------------------------------------------------------------------------*/
