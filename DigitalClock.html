@@ -1,7 +1,8 @@
 <!--Hacer un boton para amliar y disminuir el tammaño del reloj en otra rama-->
-<!--Añadir cronometro-->
+<!--Añadir temporizador-->
 <!--Adaptarlo para moviles-->
 <!--Poner boton de play y reset bonito-->
+<!--Poner bonitos los inputs-->
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@
     <script>      
         
         var estado = false;
-        let modos = ["Reloj", "cronometro" ];
+        let modos = ["Reloj", "cronometro", "temporizador" ];
         let mode = modos[0];
 
         function noche(){
@@ -34,11 +35,20 @@
                 document.getElementById("modoNoche").style.backgroundColor = '#202020'; 
                 document.getElementById("cronometro").style.backgroundColor = '#202020';
                 document.getElementById("cronometro").style.color = '#FFFFFF'
+                document.getElementById("temporizador").style.backgroundColor = '#202020';
+                document.getElementById("temporizador").style.color = '#FFFFFF'
 
                 document.getElementById("Parar").style.backgroundColor = '#202020';
                 document.getElementById("Parar").style.color = '#FFFFFF'
                 document.getElementById("Reset").style.backgroundColor = '#202020';
                 document.getElementById("Reset").style.color = '#FFFFFF'
+
+                document.getElementById("hT").style.backgroundColor = '#101010';
+                document.getElementById("mT").style.backgroundColor = '#101010';
+                document.getElementById("sT").style.backgroundColor = '#101010';
+                docuemnt.getElementById("hT").style.color = '#FFFFFF';
+                docuemnt.getElementById("mT").style.color = '#FFFFFF';
+                docuemnt.getElementById("sT").style.color = '#FFFFFF';
                 
                 
             }
@@ -56,16 +66,28 @@
                 document.getElementById("modoNoche").style.backgroundColor = '#d8dbe0';
                 document.getElementById("cronometro").style.backgroundColor = '#d8dbe0';
                 document.getElementById("cronometro").style.color = '#000000'
+                document.getElementById("temporizador").style.backgroundColor = '#d8dbe0';
+                document.getElementById("temporizador").style.color = '#000000'
 
                 document.getElementById("Parar").style.color = '#000000'
                 document.getElementById("Parar").style.backgroundColor = '#d8dbe0';
                 document.getElementById("Reset").style.color = '#000000'
                 document.getElementById("Reset").style.backgroundColor = '#d8dbe0';
+
+                document.getElementById("hT").style.backgroundColor = 'white';
+                document.getElementById("mT").style.backgroundColor = 'white';
+                document.getElementById("sT").style.backgroundColor = 'white';
+                docuemnt.getElementById("hT").style.color = '#000000';
+                docuemnt.getElementById("mT").style.color = '#000000';
+                docuemnt.getElementById("sT").style.color = 'red';
+                
+
             }
         }
         
         setInterval(displayHello, 1000);
-        function displayHello() {
+        function displayHello() 
+        {
 
 
                 var d = new Date();
@@ -78,6 +100,7 @@
                     document.getElementById("Parar").style.display = "none";
                     document.getElementById("Reset").style.display = "none";
                     document.getElementById("cronometro").innerHTML = "Cronómetro";
+
                     //horas
                     if(hora == "0" || hora == "1" || hora == "2" || hora == "3" || hora == "4" || hora == "5" || hora == "6" || hora == "7" || hora == "8" || hora == "9")
                         document.getElementById("hora").innerHTML = "0" + hora + "";
@@ -96,34 +119,121 @@
                     else
                         document.getElementById("segundos").innerHTML = "" + sec;
                 }
-                else
+                else if(mode == "cronometro")
                 {
                     cronometro();
+                    
                     document.getElementById("cronometro").innerHTML = "Reloj";
                     document.getElementById("Parar").style.display = "initial";
                     document.getElementById("Reset").style.display = "initial";
+
+                    /*document.getElementById("hora").style.opacity = "initial";
+                    document.getElementById("minutos").style.opacity = "initial";
+                    document.getElementById("segundos").style.opacity = "initial";*/
+
+                    document.getElementById("hT").style.display = "none";
+                    document.getElementById("mT").style.display = "none";
+                    document.getElementById("sT").style.display = "none";
                 }
-                               
-          
+                else if(mode == 'temporizador')
+                {
+                    temporizador();
+
+                    document.getElementById("cronometro").innerHTML = "Cronómetro";
+                    document.getElementById("Parar").style.display = "initial";
+                    document.getElementById("Reset").style.display = "initial";
+
+                    if(paradoT == true){
+                        document.getElementById("hT").style.display = "initial";
+                        document.getElementById("mT").style.display = "initial";
+                        document.getElementById("sT").style.display = "initial";
+                    }
+                    else
+                    {
+                        document.getElementById("hT").style.display = "none";
+                        document.getElementById("mT").style.display = "none";
+                        document.getElementById("sT").style.display = "none";
+                    }
+                }
+        }
+        function changeMode(num){
+            if((mode == modos[0] || mode == modos[2]) && num == 'cronometro' )
+                mode = modos[1];
+            else if (mode == modos[1] && num == modos[1] )
+                mode = modos[0];
+            else 
+                mode = modos[2];
+
+            document.getElementById("Parar").innerHTML = "Play";
+            paradoT = true;
+            paradoC = true;
         }
 
-        function changeMode(){
-            if(mode == modos[0])
-                mode = modos[1];
-            else
-                mode = modos[0];
-        }
         function changeParado()
         {
-            if(paradoC == true)
-                paradoC = false;
-            else
-                paradoC = true;
+            if(mode == modos[1])
+            {
+                if(paradoC == true)
+                    paradoC = false;
+                else
+                    paradoC = true;
 
-            if(paradoC == true)
-                document.getElementById("Parar").innerHTML = "Play";
+                if(paradoC == true)
+                    document.getElementById("Parar").innerHTML = "Play";
+                else
+                    document.getElementById("Parar").innerHTML = "Pause";
+            }
             else
-                document.getElementById("Parar").innerHTML = "Pause";
+            {
+                //get  los numeros del temporizador y asignarlo a las variables
+                let h = document.getElementById("hT");
+                let m = document.getElementById("mT");
+                let s = document.getElementById("sT");
+
+                if(paradoT == true){
+                    horaT = h.value;
+                    minT = m.value;
+                    secT = s.value;                           
+                }
+                else
+                {
+                    s.value = secT;
+                    h.value = horaT;
+                    m.value = minT;    
+                }
+
+                if((minT != 0 || horaT != 0) && secT != 0)
+                {
+                    if(paradoT == true)
+                        paradoT = false;
+                    else
+                        paradoT = true;
+                    if(paradoT == true)
+                        document.getElementById("Parar").innerHTML = "Play";
+                    else
+                        document.getElementById("Parar").innerHTML = "Pause";
+                }
+            
+            }
+        }
+
+        function Reset()
+        {
+            if(mode == modos[1])
+            {
+                secC = 0;
+                minC = 0;
+                horaC = 0;
+                if(paradoC == false)
+                    changeParado();
+            }
+            else
+            {
+                secT = 0;
+                minT = 0;
+                horaT = 0;
+                paradoT = true;
+            }
         }
 
         var secC = 0;
@@ -133,7 +243,7 @@
 
         function enMarcha()
         {
-            if(paradoC == false) //poner en false al acabar, el true es solo para probar de momento
+            if(paradoC == false) 
             {
                 if(secC == 59)
                 {
@@ -158,15 +268,8 @@
             }    
         }
 
-        function Reset(){
-            secC = 0;
-            minC = 0;
-            horaC = 0;
-            if(paradoC == false)
-                changeParado();
-        }
-
-        function cronometro() {
+        function cronometro() 
+        {
            
             enMarcha();
                 //horas
@@ -188,6 +291,68 @@
                     document.getElementById("segundos").innerHTML = "" + secC;
 
         }
+
+        let horaT = 0;
+        let minT = 0;
+        let secT = 0;
+        let paradoT = true;
+
+        function enMarchaT()
+        {
+            
+            if(paradoT == false && (minT>=0 && minT<=59 && secT>=0 && secT<=59 && horaT >= 0))
+            {
+                if(secT == 00) 
+                {
+                    secT = 59;
+                    if(minT == 00 && horaT != 00) 
+                    {
+                        minT = 59;
+                        if(horaT != 00)
+                        {
+                            horaT--;
+                        }
+
+                    }
+                    else if(minT!=00)
+                    {
+                        minT--;
+                    }
+                }
+                else
+                    secT--;
+            }
+            else if (paradoT == false && (minT == 0 && secT == 0 && horaT == 0))
+            {
+                paradoT = true;
+                document.getElementById("Parar").innerHTML = "Play";
+                horaT = 0;
+                minT = 0;
+                secT = 0;
+            }
+        }
+
+        function temporizador()
+        {
+            enMarchaT();
+            if(horaT == "0" || horaT == "1" || horaT == "2" || horaT == "3" || horaT == "4" || horaT == "5" || horaT == "6" || horaT == "7" || horaT == "8" || horaT == "9")
+                    document.getElementById("hora").innerHTML = "0" + horaT + "";
+                else
+                    document.getElementById("hora").innerHTML = horaT + "";
+                
+                //minutos
+                if(minT == "0" || minT == "1" || minT == "2" || minT == "3" || minT == "4" || minT == "5" || minT == "6" || minT == "7" || minT == "8" || minT == "9")
+                    document.getElementById("minutos").innerHTML = "0" + minT;
+                else
+                    document.getElementById("minutos").innerHTML = "" + minT;
+                
+                //segundos
+                if(secT == "0" || secT == "1" || secT == "2" || secT == "3" || secT == "4" || secT == "5" || secT == "6" || secT == "7" || secT == "8" || secT == "9")
+                    document.getElementById("segundos").innerHTML = "0" + secT;
+                else
+                    document.getElementById("segundos").innerHTML = "" + secT;
+        }
+    
     </script>
 
     <style>
@@ -202,6 +367,19 @@
         font-family: DS-DIGIB;
         src: url("DS-DIGIB.TTF");
     }
+    body{
+        display: grid;
+        place-items: center;
+    }
+    #reloj{
+        position: absolute;        
+        /*background-color: aqua;*/
+        top: 40%;
+        width: 380px;
+        height:50px;
+              
+    }
+
     #hora{
         position: absolute;
         display: flexbox;
@@ -244,40 +422,6 @@
         
     }
 
-    body{
-        display: flex;
-        justify-content: center;
-    }
-
-    #Parar{
-        width: 100px;
-        height: 50px;
-        background-color: #d8dbe0;
-        border-radius: 50px;
-        cursor: pointer;
-        color: #000000;
-        text-align: center;
-        border: none;
-        display: none;
-    }
-    #Reset{
-        width: 100px;
-        height: 50px;
-        background-color: #d8dbe0;
-        border-radius: 50px;
-        cursor: pointer;
-        color: #000000;
-        text-align: center;
-        border: none;
-        display: none;
-    }
-    #reloj{
-        position: absolute;        
-        /*background-color: aqua;*/
-        top: 40%;
-        width: 20%;        
-    }
-
     #punto1{
         position: absolute;
         margin-left: 110px;
@@ -303,10 +447,103 @@
         line-height: 15px;
     }
 
+    #cajonInputs{
+        display: inline-block;
+        position: relative;
+    }
+
+    #hT{
+        /*position: absolute;
+        width: 112px;
+        height: 100px;
+        font-family: 'DS-DIGIB';
+        font-size: 100px;*/
+
+        position: absolute;
+        display: flexbox;
+        width: 112px;
+        height: 80px;
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+        border: 0;
+        top: 50px;
+
+    }
+    #mT{
+        /*position: absolute;
+        width: 112px;
+        height: 100px;
+        left: 112px;
+        font-family: 'DS-DIGIB';
+        font-size: 100px;*/
+        position: absolute;
+        display: flexbox;
+        width: 112px;
+        height: 80px;
+
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+        left: 140px;
+        border: 0;
+        top: 50px;
+    }
+    #sT{
+        /*position: absolute;
+        width: 112px;
+        height: 100px;
+        left: 224px;
+        font-family: 'DS-DIGIB';
+        font-size: 100px;*/
+
+        position: absolute;
+        display: flexbox;
+        width: 112px;
+        height: 80px;
+
+        font-family: 'DS-DIGIB';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 15px;
+        left: 280px;
+        border: 0;
+        top: 50px;
+    }
+
     #cajonPlay{
             position: absolute;
             top: 60%;
     }
+
+    #Parar{
+        width: 100px;
+        height: 50px;
+        background-color: #d8dbe0;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #000000;
+        text-align: center;
+        border: none;
+        display: none;
+    }
+    #Reset{
+        width: 100px;
+        height: 50px;
+        background-color: #d8dbe0;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #000000;
+        text-align: center;
+        border: none;
+        display: none;
+    }
+
 
 :root {
 --light: #d8dbe0;
@@ -345,6 +582,17 @@ text-align: center;
 border: none;
 }
 
+#temporizador{
+width: 100px;
+height: 50px;
+background-color: #d8dbe0;
+border-radius: 50px;
+cursor: pointer;
+color: #000000;
+text-align: center;
+border: none;        
+}
+
 
 input {
 position: absolute;
@@ -353,9 +601,6 @@ display: none;
 
 }
 
-
-
-
 @media screen and (min-width: 480px) and (max-width:1024px) {
     
 
@@ -363,6 +608,21 @@ display: none;
             font-family: DS-DIGIB;
             src: url("DS-DIGIB.TTF");
         }
+
+        body{
+            display: flex;
+            justify-content: center;  
+        }
+
+        #reloj{
+            position: absolute;
+            display: inline-block;
+            top: 40%;
+            width: 380px;
+            /*height: 200px;*/
+            
+        }
+
         #hora{
             position: absolute;
             display: flexbox;
@@ -404,20 +664,6 @@ display: none;
             
         }
 
-        body{
-            display: flex;
-            justify-content: center;  
-        }
-
-        #reloj{
-            position: absolute;
-            display: inline-block;
-            top: 40%;
-            width: 40%;
-            /*height: 200px;*/
-            
-        }
-
         #punto1{
             position: absolute;
             margin-left: 110px;
@@ -441,6 +687,63 @@ display: none;
             font-weight: 400;
             font-size: 100px;
             line-height: 15px;
+        }
+
+        #cajonInputs{
+        display: inline-block;
+        position: relative;
+        }
+
+        #hT{
+            position: absolute;
+            display: flexbox;
+            width: 100px;
+            height: 80px;
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+            border: 0;
+            top: 50px;
+        }
+
+        #mT{
+            position: absolute;
+            display: flexbox;
+            width: 100px;
+            height: 80px;
+
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+            left: 140px;
+            border: 0;
+            top: 50px;
+        }
+
+        #sT{
+            position: absolute;
+            display: flexbox;
+            width: 100px;
+            height: 80px;
+
+            font-family: 'DS-DIGIB';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 100px;
+            line-height: 15px;
+            left: 280px;
+            border: 0;
+            top: 50px;
+        }
+
+        #cajonPlay{
+            position: absolute;
+            top: 55%;
+            width: 200px;
         }
 
         #Parar{
@@ -468,12 +771,6 @@ display: none;
             font-size: 30px;
             display: none;
         }
-
-        #cajonPlay{
-            position: absolute;
-            top: 55%;
-            width: 200px;
-    }
 
 :root {
   --light: #d8dbe0;
@@ -517,6 +814,17 @@ display: none;
   font-size: 30px;
 }
 
+#temporizador{
+    width: 100%;
+    height: 20%;
+    background-color: #d8dbe0;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #000000;
+    text-align: center;
+    border: none;
+    font-size: 30px;       
+}
 
 input {
   position: absolute;
@@ -538,7 +846,14 @@ input {
         <p id="minutos"></p>
         <p id="punto2">:</p>
         <p id="segundos"></p>
-        
+
+        <div id="cajonInputs">
+            <input type="number" id="hT" value="" max="99" min="0" placeholder="00"/>
+            <input type="number" id="mT" value="" max="59" min="0" placeholder="00"/>
+            <input type="number" id="sT" value="" max="59" min="0" placeholder="00"/>
+        </div>
+
+ 
 
     </div>
 
@@ -568,11 +883,18 @@ input {
             Dark Mode
         </button>
     
-        <button onclick="changeMode()" id="cronometro">
+        <button onclick="changeMode('cronometro')" id="cronometro">
             <input type = 'checkbox'>
             <span class = 'slider'></span>
             Cronómetro
         </button>
+
+        <button onclick="changeMode('temporizador')"  id="temporizador">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            Temporizador
+        </button>
+
     
         </div>
     
