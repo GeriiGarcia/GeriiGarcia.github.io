@@ -97,22 +97,27 @@
 
         body{
             background-color: #d5b26c;
+            z-index: 1;
         }
 
         #TextoPrincipal{
-            width: 500px;
-            height: 200px;
+            width: fit-content;
+            height: fit-content;
             position: absolute;
             left: 42%;
             align-items: center;
-            margin-top: 50px;
+            margin-top: 2%;
         }
         #Texto{
             align-items: center;
+            width: fit-content;
+            z-index: 1;
         }
         #Orden{
             align-items: center;
             margin-left: -70px;
+            width: fit-content;
+            z-index: 1;
         }
 
         #TextoEdad{
@@ -168,70 +173,148 @@
 
 
         /*encabezado---------------------------------------------------------------------------------------------------*/
-        *{
-            margin: 0;
-            padding: 0;
+
+        @media screen and (min-width: 370px) and (max-width:1024px) {
+
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            .encabezado {
+                background: #202020;
+                justify-content: space-around;
+                position: static;
+            }
+            .encabezado nav{
+                display: flex;
+                justify-content: space-around;
+                align-items:center;
+                padding: 10px;
+            }
+
+            .encabezado nav h1{
+                text-align: center;
+                color: white;
+            }
+
+            a{
+                text-decoration:none;
+                font-size:20px;
+                color: white;
+                padding: 12px 20px;
+                display: block;
+                text-align:center;
+                z-index: 3;
+                
+            }
+
+            a:hover {
+                background: #444444;
+            }
+
+            ul{
+                list-style:none;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .encabezado nav .menu li ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background: #202020;
+            }
+
+            .encabezado nav .menu li:hover ul{
+                display:flex;
+                position:absolute; 
+            } 
+
+            .volver{  
+                color: #444444;
+                /*margin: 400px 0 0 -50px;*/
+                margin: 40% 0 0 0;
+
+
+            }
+
+            .volver:valid{
+                color:white;
+            }
         }
 
-        .encabezado {
-            background: #202020;
-            justify-content: space-around;
-            position: static;
-        }
-        .encabezado nav{
-            display: flex;
-            justify-content: space-around;
-            align-items:center;
-            padding: 10px;
+        @media screen and (min-width: 1024px) and (max-width:2000px) {
+            
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            .encabezado {
+                background: #202020;
+                justify-content: space-around;
+                position: static;
+            }
+            .encabezado nav{
+                display: flex;
+                justify-content: space-around;
+                align-items:center;
+                padding: 10px;
+            }
+
+            .encabezado nav h1{
+                text-align: center;
+                color: white;
+            }
+
+            a{
+                text-decoration:none;
+                font-size:20px;
+                color: white;
+                padding: 12px 20px;
+                display: block;
+                text-align:center;
+            }
+
+            a:hover {
+                background: #444444;
+            }
+
+            ul{
+                list-style:none;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .encabezado nav .menu li ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background: #202020;
+            }
+
+            .encabezado nav .menu li:hover ul{
+                display:flex;
+                position:absolute; 
+                z-index: 3;
+            } 
+
+            .volver{  
+                color: #444444;
+                /*margin: 400px 0 0 -50px;*/
+                margin: 40% 0 0 0;
+
+
+            }
+
+            .volver:hover{
+                color:white;
+            }
+
         }
 
-        .encabezado nav h1{
-            text-align: center;
-            color: white;
-        }
-
-        a{
-            text-decoration:none;
-            font-size:20px;
-            color: white;
-            padding: 12px 20px;
-            display: block;
-            text-align:center;
-        }
-
-        a:hover {
-            background: #444444;
-        }
-         
-        ul{
-            list-style:none;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .encabezado nav .menu li ul {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            background: #202020;
-        }
-
-        .encabezado nav .menu li:hover ul{
-            display:flex;
-            position:absolute; 
-        } 
-
-        .volver{  
-            color: #444444;
-            /*margin: 400px 0 0 -50px;*/
-            margin: 40% 0 0 0;
-
-
-        }
-
-        .volver:hover{
-            color:white;
-        }
+        
 
     </style>
 </head>
@@ -246,7 +329,7 @@
                 <ul class="menu">
                     <li><a href="index.html">Inicio</a></li>
                     <li>
-                        <a href="">Projects</a>
+                        <a >Projects</a>
                         <ul>
                             <li><a href="calculator.html">Calculator</a></li>
                             <li><a href="#">Age Calculator</a></li>
