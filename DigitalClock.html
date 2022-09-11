@@ -27,9 +27,6 @@
                 la = screen.height - 300;
             }
             
-
-                
-
             document.getElementById("botonera").style.top = la + "px";
         }
 
@@ -310,6 +307,9 @@
         let minT = 0;
         let secT = 0;
         let paradoT = true;
+        function playAudio(){
+            audio.play();
+        }
 
         function enMarchaT()
         {
@@ -348,6 +348,11 @@
             }
             else
             {
+                const audio = new Audio("audio.mp3");
+                
+                if(paradoT == false)
+                    playAudio();
+
                 paradoT = true;
                 document.getElementById("Parar").innerHTML = "Play";
                 horaT = 0;
@@ -397,6 +402,11 @@
         padding: 0;
     }
     
+    #audio{
+        position: absolute;
+        display: none;
+    }
+
     #todo{
         display: grid;
         place-items: center;
@@ -695,7 +705,12 @@ ul {
             margin: 0;
             padding: 0;
         }
-    
+        
+        #audio{
+            position: absolute;
+            display: none;
+        }
+
         #todo{
         display: grid;
         place-items: center;
@@ -1064,6 +1079,11 @@ ul {
 
     
         </div>
+
+        <audio id="audio" controls>
+            <source type="audio/mp3" src="audio.mp3">
+        </audio>
+    
     
 
 </body>
