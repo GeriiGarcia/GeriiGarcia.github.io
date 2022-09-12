@@ -82,18 +82,26 @@
             {
                 edad--;
                 meses = 12 - (mesNaciemiento - mesActual);
+                if(diaNacimiento > diaActual)
+                    meses--;
             }
             else if(mesNaciemiento == mesActual && diaNacimiento > diaActual)
             {
                 edad--;
-                meses = 12;
+                meses = 11;
             }
                 
             if(mesNaciemiento < mesActual)
+            {
                 meses = mesActual - mesNaciemiento;
 
+                if(diaNacimiento > diaActual)
+                    meses--;
+
+            }
+               
             if(diaNacimiento > diaActual)
-                dias = diasMeses[mesActual - 1] - (diaNacimiento - diaActual);
+                dias = diasMeses[fecha.getMonth()-1] - (diaNacimiento - diaActual);
             else
                 dias = diaActual - diaNacimiento;
             
