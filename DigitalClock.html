@@ -12,20 +12,26 @@
         let modos = ["Reloj", "cronometro", "temporizador" ];
         let mode = modos[0];
 
-        
-        
+        function isMovile(){
+            let movile = new Boolean;
+            movile = false;
+
+            let navegador = navigator.userAgent;
+            if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+                movile = true
+            }
+
+            return movile;
+
+        }
 
         window.onload = function arraglao(){
             let la = "";
 
-            
-        
-            let navegador = navigator.userAgent;
-            if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+            if(isMovile())
                 la = screen.height + 500;
-            } else {
+            else
                 la = screen.height - 300;
-            }
             
             document.getElementById("botonera").style.top = la + "px";
         }
@@ -213,6 +219,8 @@
                     m.value = minT;    
                 }
 
+                alert(horaT.length);
+
                 if((minT.length != 0 && horaT.length != 0) && secT.length != 0)
                 {
                     if(paradoT == true)
@@ -351,7 +359,20 @@
                 const audio = new Audio("audio.mp3");
                 
                 if(paradoT == false)
-                    playAudio();
+                {
+                    if(!isMovile())
+                        playAudio();
+                    else{
+                        var audio2;
+                        $("#startAudio").on("click", function(e){
+                            if(!audio2){
+                                audio2=new Audio("audio.mp3");;
+                            }
+                        });
+                    }
+
+                }
+                    
 
                 paradoT = true;
                 document.getElementById("Parar").innerHTML = "Play";
