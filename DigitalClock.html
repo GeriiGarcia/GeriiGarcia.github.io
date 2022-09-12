@@ -354,6 +354,7 @@
             }
             else
             {
+                
                 const audio = new Audio("audio.mp3");
                 
                 if(paradoT == false)
@@ -367,11 +368,12 @@
                                 audio2=new Audio("audio.mp3");;
                             }
                         });
+                        audio2.play();
                     }
 
                 }
                     
-
+                
                 paradoT = true;
                 document.getElementById("Parar").innerHTML = "Play";
                 horaT = 0;
