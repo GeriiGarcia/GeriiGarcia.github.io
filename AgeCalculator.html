@@ -5,6 +5,8 @@
 
     <script>
 
+        let diasMeses = [31,28,31,30,31,30,31,31,30,31,30,31];
+
         function fechaReal(d,m,a, actual)
         {
             var real = true;
@@ -72,7 +74,7 @@
             const fecha = new Date();
             var añoActual = fecha.getFullYear();
             var mesActual = fecha.getMonth() + 1;
-            var diaActual = fecha.getDay();
+            var diaActual = fecha.getDate();
 
             edad = añoActual - añoNaciemiento;
 
@@ -82,20 +84,27 @@
                 meses = 12 - (mesNaciemiento - mesActual);
             }
             else if(mesNaciemiento == mesActual && diaNacimiento > diaActual)
-                edad--;
-
-            if(mesNaciemiento < mesActual)
             {
-                meses = mesActual - mesNaciemiento;
+                edad--;
+                meses = 12;
             }
+                
+            if(mesNaciemiento < mesActual)
+                meses = mesActual - mesNaciemiento;
+
+            if(diaNacimiento > diaActual)
+                dias = diasMeses[mesActual - 1] - (diaNacimiento - diaActual);
+            else
+                dias = diaActual - diaNacimiento;
             
+                
 
             if(!isNaN(añoNaciemiento) && !isNaN(mesNaciemiento) && !isNaN(diaNacimiento))
             {
                 if(!fechaReal(diaNacimiento, mesNaciemiento, añoNaciemiento, añoActual))
                     var t = document.getElementById("TextoEdad").innerHTML = "Fecha Incorrecta";
                 else
-                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años " + meses + " Meses";
+                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años " + meses + " Meses y " + dias + " Dias";
             }
             else
                 t=document.getElementById("TextoEdad").innerHTML="";
@@ -134,7 +143,7 @@
         #TextoEdad{
             position: absolute;
             margin: 350px 0 0 50px;
-            left: 38%;
+            left: 35%;
         }
         #testButton{
             position: absolute;
