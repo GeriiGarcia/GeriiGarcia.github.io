@@ -58,6 +58,9 @@
         function calcular(d,m,a)
         {
             var edad = 0;
+            var meses = 0;
+            var dias = 0;
+
             var diaNacimiento = document.getElementById(d).value;
             var mesNaciemiento =  document.getElementById(m).value;
             var añoNaciemiento = document.getElementById(a).value;
@@ -74,17 +77,25 @@
             edad = añoActual - añoNaciemiento;
 
             if (mesNaciemiento > mesActual)
+            {
                 edad--;
-            
+                meses = 12 - (mesNaciemiento - mesActual);
+            }
             else if(mesNaciemiento == mesActual && diaNacimiento > diaActual)
                 edad--;
+
+            if(mesNaciemiento < mesActual)
+            {
+                meses = mesActual - mesNaciemiento;
+            }
+            
 
             if(!isNaN(añoNaciemiento) && !isNaN(mesNaciemiento) && !isNaN(diaNacimiento))
             {
                 if(!fechaReal(diaNacimiento, mesNaciemiento, añoNaciemiento, añoActual))
                     var t = document.getElementById("TextoEdad").innerHTML = "Fecha Incorrecta";
                 else
-                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años";
+                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años " + meses + " Meses";
             }
             else
                 t=document.getElementById("TextoEdad").innerHTML="";
@@ -123,7 +134,7 @@
         #TextoEdad{
             position: absolute;
             margin: 350px 0 0 50px;
-            left: 40%;
+            left: 38%;
         }
         #testButton{
             position: absolute;
