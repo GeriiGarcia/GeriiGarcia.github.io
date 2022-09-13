@@ -7,6 +7,18 @@
 
         let diasMeses = [31,28,31,30,31,30,31,31,30,31,30,31];
 
+        class Edad{
+            constructor(años, meses, dias) {
+                this.años = años;
+                this.meses = meses;
+                this.dias = dias;
+            }
+
+            transMeses(años, meses) {
+                return años * 12 + meses;
+            }
+        }
+
         function fechaReal(d,m,a, actual)
         {
             var real = true;
@@ -58,9 +70,7 @@
 
         function calcular(d,m,a)
         {
-            var edad = 0;
-            var meses = 0;
-            var dias = 0;
+            let completa = new Edad(0,0,0);
 
             var diaNacimiento = document.getElementById(d).value;
             var mesNaciemiento =  document.getElementById(m).value;
@@ -75,43 +85,45 @@
             var mesActual = fecha.getMonth() + 1;
             var diaActual = fecha.getDate();
 
-            edad = añoActual - añoNaciemiento;
+            completa.años = añoActual - añoNaciemiento;
 
             if (mesNaciemiento > mesActual)
             {
-                edad--;
-                meses = 12 - (mesNaciemiento - mesActual);
+                completa.años--;
+                completa.meses = 12 - (mesNaciemiento - mesActual);
                 if(diaNacimiento > diaActual)
                     meses--;
             }
             else if(mesNaciemiento == mesActual && diaNacimiento > diaActual)
             {
-                edad--;
-                meses = 11;
+                completa.años--;
+                completa.meses = 11;
             }
             
             if(mesNaciemiento < mesActual)
             {
-                meses = mesActual - mesNaciemiento;
+                completa.meses = mesActual - mesNaciemiento;
 
                 if(diaNacimiento > diaActual)
-                    meses--;
+                    completa.meses--;
             }
             
             //calcular dias, el -1 de la funcion es por que tiene que contar los dias desde el mes anterior
             if(diaNacimiento > diaActual)
-                dias = diasMeses[fecha.getMonth()-1] - (diaNacimiento - diaActual);
+                completa.dias = diasMeses[fecha.getMonth()-1] - (diaNacimiento - diaActual);
             else
-                dias = diaActual - diaNacimiento;
+                completa.dias = diaActual - diaNacimiento;  
             
-                
+
+            //despues de hacer todo el calculo creo soloMeses
+            let soloMeses = new Edad(0,completa.transMeses(completa.años,completa.meses),completa.dias);
 
             if(!isNaN(añoNaciemiento) && !isNaN(mesNaciemiento) && !isNaN(diaNacimiento))
             {
                 if(!fechaReal(diaNacimiento, mesNaciemiento, añoNaciemiento, añoActual))
                     var t = document.getElementById("TextoEdad").innerHTML = "Fecha Incorrecta";
                 else
-                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + edad + " Años " + meses + " Meses y " + dias + " Dias";
+                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + completa.años + " Años " + completa.meses + " Meses y " + completa.dias + " Dias" +"<br>" + soloMeses.meses;
             }
             else
                 t=document.getElementById("TextoEdad").innerHTML="";
