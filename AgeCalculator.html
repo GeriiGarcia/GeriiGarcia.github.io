@@ -71,6 +71,7 @@
         function calcular(d,m,a)
         {
             let completa = new Edad(0,0,0);
+            
 
             var diaNacimiento = document.getElementById(d).value;
             var mesNaciemiento =  document.getElementById(m).value;
@@ -115,15 +116,23 @@
                 completa.dias = diaActual - diaNacimiento;  
             
 
-            //despues de hacer todo el calculo creo soloMeses
+            //despues de hacer todo el calculo, creo soloMeses
             let soloMeses = new Edad(0,completa.transMeses(completa.años,completa.meses),completa.dias);
+            let soloDias = new Date(añoNaciemiento, mesNaciemiento - 1, diaNacimiento);
+
+            soloDias = fecha - soloDias;
+            
+            soloDias = soloDias/(1000*60*60*24);
+            soloDias = parseInt(soloDias);
 
             if(!isNaN(añoNaciemiento) && !isNaN(mesNaciemiento) && !isNaN(diaNacimiento))
             {
                 if(!fechaReal(diaNacimiento, mesNaciemiento, añoNaciemiento, añoActual))
                     var t = document.getElementById("TextoEdad").innerHTML = "Fecha Incorrecta";
                 else
-                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + completa.años + " Años " + completa.meses + " Meses y " + completa.dias + " Dias" +"<br>" + soloMeses.meses;
+                    t = document.getElementById("TextoEdad").innerHTML = "Tienes: " + completa.años + " Años " + completa.meses + " Meses y " + completa.dias + " Dias" +"<br>" + 
+                    "Tienes: " + soloMeses.meses + " Meses y " + completa.dias + " dias." + "<br>" + 
+                    "Tienes: " + soloDias + " Dias.";
             }
             else
                 t=document.getElementById("TextoEdad").innerHTML="";
