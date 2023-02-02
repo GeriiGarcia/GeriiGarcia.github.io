@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P G</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            text-align: center;
+        }
+
+        div{
+            margin: 80px auto;
+        }
+
+        .caracteristica{
+            margin: auto 10px;
+            width: 100px;
+            height: 50px;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+        }
+
+        input {
+            display: none;
+        }
+
+        #divSlide{
+            display: inline-flex;
+            margin: -15px auto;
+        }
+
+        #slide{
+            margin: 10px 10px auto;
+            display: initial;
+        }
+
+        #textLargo{
+            margin: 10px 10px auto;
+        }
+
+        #copiar{
+            margin: auto 10px;
+            padding: 10px;
+            width: max-content;
+            height: 35px;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            display: initial;
+        }
+
+        #divPassword{
+            
+            width: max-content;
+            
+        }
+
+        #password{
+            margin: auto 10px;
+            border-width: thin;
+            border-color: black;
+            border-style: solid;
+            padding: 10px 30px 10px 30px;
+            width: max-content;
+            border-radius: 10px;
+            display: initial;
+        }
+
+        #divGenerar{
+            margin: -20px auto;
+        }
+
+        #generar{
+            margin: auto 10px;
+            padding: 10px;
+            width: max-content;
+            height: 35px;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            transition: 1s;
+        }
+
+        #generar:hover{
+            background-color: #77dd77;
+            color: white;
+        }
+
+        .encabezado {
+    background: #202020;
+    justify-content: space-around;
+    
+}
+
+    .encabezado nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+        
+    }
+
+        .encabezado nav h1 {
+            text-align: center;
+            color: white;
+        }
+
+a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 12px 20px;
+    display: block;
+    text-align: center;
+}
+
+    a:hover {
+        background: #444444;
+    }
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.encabezado nav .menu li ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background: #202020;
+}
+
+.encabezado nav .menu li:hover ul {
+    display: flex;
+    position: absolute;
+} 
+
+
+        
+
+    </style>    
+
+    <script>
+
+        window.onload = function iniciar() {
+            
+        }
+
+        function animacionCopiar(){
+            document.getElementById('copiar').style.backgroundColor = "#77dd77";
+            document.getElementById('copiar').style.color = "#FFFFFF";
+            setTimeout(() => {
+                document.getElementById('copiar').style.backgroundColor = "#d8dbe0";
+                document.getElementById('copiar').style.color = "#000000";
+               
+            }, 1500);
+        }
+
+        function copiar(){
+            var codigoACopiar = document.getElementById('password');
+            var seleccion = document.createRange();
+            seleccion.selectNodeContents(codigoACopiar);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(seleccion);
+            var res = document.execCommand('copy');
+            window.getSelection().removeRange(seleccion);
+            animacionCopiar();
+        }
+           
+        let estados = [false,false,false,false];
+        const valoresEstados = [1,2,4,8];
+        const idBotones = ["minusculas","mayusculas", "numeros", "simbolos"]
+
+        const abc = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+        const ABC = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+        const NUMS = ['0','1','2','3','4','5','6','7','8','9']
+        const SIGNOS = ['!','@','#','_','*','¡','?']
+
+        function getRandabc()
+        {
+            return abc[Math.trunc(Math.random()*abc.length)];
+        }
+
+        function getRandABC()
+        {
+            return ABC[Math.trunc(Math.random()*ABC.length)];
+        }
+
+        function getRandNUMS()
+        {
+            return NUMS[Math.trunc(Math.random()*NUMS.length)];
+        }
+
+        function getRandSIGNOS()
+        {
+            return SIGNOS[Math.trunc(Math.random()*SIGNOS.length)];
+        }
+
+        function cambiarEstado(boton)
+        {
+            estados[boton] = !estados[boton];
+
+            if(estados[boton])
+                document.getElementById(idBotones[boton]).style.backgroundColor = "#77dd77";
+            else
+                document.getElementById(idBotones[boton]).style.backgroundColor = "#d8dbe0";
+            
+        }
+
+        function getLon()
+        {
+            var lon = document.getElementById("slide").value;
+            document.getElementById("textLargo").innerHTML = lon;
+            return lon;
+        }
+
+        function getNumTrue()
+        {
+            let count = 0;
+
+            for(let i = 0; i < 4; i++)
+            {
+                if(estados[i])
+                    count++;
+            }
+
+            return count;
+        }
+
+        function escoger(num, numTrue, valor)
+        {
+            let tryButton = num % numTrue;
+
+            switch (valor) {
+                case 1:
+                    return getRandabc();
+                    break;
+
+                case 2:
+                    return getRandABC();
+                    break;
+
+                case 3:
+                    if(tryButton == 0)
+                        return getRandabc();
+                    else
+                        return getRandABC();
+                    break; 
+
+                case 4:
+                    return getRandNUMS();
+                    break;
+                
+                case 5:
+                    if(tryButton == 0)
+                        return getRandabc();
+                    else
+                        return getRandNUMS();
+                    break;
+
+                case 6:
+                    if(tryButton == 0)
+                        return getRandABC();
+                    else
+                        return getRandNUMS();
+                    break;
+
+                case 7:
+                    if(tryButton == 0)
+                        return getRandabc();
+                    else if(tryButton == 1)
+                        return getRandABC();
+                    else
+                        return getRandNUMS();
+                    break;
+
+                case 8:
+                    return getRandSIGNOS();
+                    break;
+
+                case 9:
+                    if(tryButton == 0)
+                        return getRandabc();
+                    else
+                        return getRandSIGNOS();
+                    break;
+
+                case 10:
+                    if(tryButton == 0)
+                        return getRandABC();
+                    else
+                        return getRandSIGNOS();
+                    break;
+
+                case 11:
+                    if(tryButton == 0)
+                        return getRandabc();
+                    else if(tryButton == 1)
+                        return getRandABC();
+                    else
+                        return getRandSIGNOS();
+                    break;
+
+                case 12:
+                    if(tryButton == 0)
+                        return getRandNUMS();
+                    else
+                        return getRandSIGNOS();
+                    break;
+
+                case 13:
+                    if(tryButton == 0)
+                        return getRandabc();
+                    else if(tryButton == 1)
+                        return getRandNUMS();
+                    else
+                        return getRandSIGNOS();
+                    break;
+
+                case 14:
+                    if(tryButton == 0)
+                        return getRandABC();
+                    else if(tryButton == 1)
+                        return getRandNUMS();
+                    else
+                        return getRandSIGNOS();
+                    break;
+                    
+                case 15:
+                    if(tryButton == 0)
+                        return getRandabc();
+                    else if(tryButton == 1)
+                        return getRandABC();
+                    else if(tryButton == 2)
+                        return getRandNUMS();
+                    else
+                        return getRandSIGNOS();
+                    break;
+            }
+
+        }
+
+        function generate() //genero un numero aleatorio de getLon() de largo
+        {
+            //longitud del numero
+            var lonS = getLon();
+            var lon = parseInt(lonS);
+
+            //genero numero aleatorio
+            var vecNum = []
+            for (let i = 0; i < lon; i++) {
+                vecNum.push(Math.trunc(Math.random()*10));
+            }
+
+            //miro que botones estan pulsados
+            let valorPulsados = 0;
+            for (let i = 0; i < estados.length; i++) {
+                valorPulsados += estados[i]*valoresEstados[i];
+            }
+
+            if(valorPulsados == 0)
+            {
+                alert("No hay ningun boton pulsado");
+                document.getElementById("password").innerHTML = "Your password";
+                return 0;
+            }
+
+                //genero la contrasenya mediante escoger
+            var contrasenya = "";
+            for (let i = 0; i < vecNum.length; i++) {
+                contrasenya += escoger(vecNum[i], getNumTrue(), valorPulsados)
+            }
+
+            document.getElementById("password").innerHTML = contrasenya;
+                
+        }
+
+    </script>
+</head>
+<body>
+
+    <header class="encabezado">
+        <nav>
+            <h1>Gerard's Page</h1>
+            <ul class="menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li>
+                    <a href="">Projects</a>
+                    <ul id="projects">
+                        <li><a href="calculator.html">Calculator</a></li>
+                        <li><a href="AgeCalculator.html">Age Calculator</a></li>
+                        <li><a href="DigitalClock.html">Digital Clock</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Contacto</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+
+
+    <div id="divTitulo">
+        <h1 id="Titulo">Password Generator</h1>
+    </div>
+
+    <p></p>
+
+    <div id="botonera">
+        <button onclick="cambiarEstado(0)" id="minusculas" class="caracteristica">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            abc
+        </button>
+        <button onclick="cambiarEstado(1)" id="mayusculas" class="caracteristica">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            ABC
+        </button>
+        <button onclick="cambiarEstado(2)" id="numeros" class="caracteristica">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            0-9
+        </button>
+        <button onclick="cambiarEstado(3)" id="simbolos" class="caracteristica">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            !@#,_*¿?
+        </button>
+               
+    </div>
+
+    <p>Longitud de la contraseña</p>
+    
+    <div id="divSlide">
+        <input onclick="getLon();" id="slide" type="range" min="1" max="50" step="1" value="10">
+        <p id="textLargo">10</p>
+        
+    </div>
+    
+    
+    <div id="divPassword">
+        <p id="password">Your password </p>
+        <button onclick="copiar()" id="copiar">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            Copiar
+        </button>
+    </div>
+    
+    <div id="divGenerar">
+        <button onclick="generate()" id="generar">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            Generar
+        </button>
+        
+    </div>
+    
+</body>
+</html>
