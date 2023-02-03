@@ -8,6 +8,7 @@
 
     <style>
 
+@media screen and (min-width: 1024px) and (max-width:2000px) {
         *{
             margin: 0;
             padding: 0;
@@ -156,15 +157,185 @@ ul {
 } 
 
 
+}
+
+@media screen and (min-width: 30px) and (max-width:1024px) { /*Mobiles*/
+    *{
+            margin: 0; 
+            padding: 0;
+        }
+
+        body{
+            text-align: center;
+        }
+
+        div{
+            margin: 80px auto;
+        }
+
+        .caracteristica{
+            margin: auto 10px;
+            width: 100px;
+            height: 50px;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+        }
+
+        input {
+            display: none;
+        }
+
+        #divSlide{
+            display: inline-flex;
+            margin: -15px auto;
+        }
+
+        #slide{
+            margin: 10px 10px auto;
+            display: initial;
+        }
+
+        #textLargo{
+            margin: 10px 10px auto;
+        }
+
+        #copiar{
+            margin: auto 10px;
+            padding: 10px;
+            width: max-content;
+            height: 35px;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            display: initial;
+        }
+
+        #divPassword{
+            
+            width: max-content;
+            
+        }
+
+        #password{
+            margin: auto 10px;
+            border-width: thin;
+            border-color: black;
+            border-style: solid;
+            padding: 10px 30px 10px 30px;
+            width: max-content;
+            border-radius: 10px;
+            display: initial;
+        }
+
+        #divGenerar{
+            margin: -20px auto;
+        }
+
+        #generar{
+            margin: auto 10px;
+            padding: 10px;
+            width: max-content;
+            height: 35px;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            transition: 0.1s;
+        }
+
+        #generar:active{
+            background-color: #77dd77;
+            color: white;
+        }
+
+        .encabezado {
+    background: #202020;
+    justify-content: space-around;
+    
+}
+
+    .encabezado nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
         
+    }
+
+        .encabezado nav h1 {
+            text-align: center;
+            color: white;
+        }
+
+a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 12px 20px;
+    display: block;
+    text-align: center;
+}
+
+    a:hover {
+        background: #444444;
+    }
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.encabezado nav .menu li ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background: #202020;
+}
+
+.encabezado nav .menu li:hover ul {
+    display: flex;
+    position: absolute;
+}
+
+}
 
     </style>    
 
     <script>
+        function isMovile(){
+            let movile = new Boolean;
+            movile = false;
 
-        window.onload = function iniciar() {
-            
+            let navegador = navigator.userAgent;
+            if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+                movile = true
+            }
+
+            return movile;
+
         }
+
+        window.onload = function arraglao(){
+            let la = "";
+
+            if(isMovile())
+                la = screen.height + 500;
+            else
+                la = screen.height - 300;
+            
+            document.getElementById("encabezado").style.top = la + "px";
+        }
+
 
         function animacionCopiar(){
             document.getElementById('copiar').style.backgroundColor = "#77dd77";
