@@ -62,7 +62,7 @@
 
         }
         
-        #add {
+        .add {
             width: 20px;
             height: 20px;
             margin: 10px auto auto -100px;
@@ -235,7 +235,7 @@
 
         <div class="Atareas" id="añadirTarea0">
             <input type="text" placeholder="Añadir tarea" class="tarea" id="myInput0">
-            <button id="add" onclick="añadirTarea(0);">+</button>
+            <button class="add" onclick="añadirTarea(0);">+</button>
         </div>
         <ul id="ListaTarea0">
         </ul>
@@ -262,7 +262,7 @@
 
         <div class="Atareas" id="añadirTarea` + numListas.toString() + `">
                     <input type="text" placeholder="Añadir tarea" class="tarea" id="myInput` + numListas.toString() + `">
-                    <button id="add" onclick="añadirTarea(` + numListas.toString() + `);">+</button>
+                    <button class="add" onclick="añadirTarea(` + numListas.toString() + `);">+</button>
                 </div>
 
         <ul id="ListaTarea` + numListas.toString() + `">
@@ -358,15 +358,38 @@
 
     /*Pulsar enter y que pasen cosas*/
 
-    var input = document.getElementById("tituloLista"); 
-    // Execute a function when the user presses a key on the keyboard
-    input.addEventListener("keypress", function(event) {
-      // If the user presses the "Enter" key on the keyboard
-      if (event.key === "Enter") {
-        event.preventDefault();     // Cancel the default action, if needed
-        document.getElementById("añadirLista0").click();   // Trigger the button element with a click
-      }
-    });
+    
 
+    document.addEventListener("keypress", function(ev) {
+
+        if (ev.key === "Enter")
+        {
+            ev.preventDefault(); 
+            
+            if (ev.target.tagName === 'INPUT' && ev.target.className == 'tarea' && ev.target.id != "tituloLista") 
+            {
+                let num = ev.target.id[ev.target.id.length -1];
+                var padre = document.getElementById("añadirTarea" + num.toString());
+                
+                let children = padre.childNodes;
+                
+                for (const node of children) {
+
+                    if(node.className == "add")
+                    {
+                        node.click();
+                    }
+                }
+            }
+            else if(ev.target.tagName === 'INPUT' && ev.target.className == 'tarea' && ev.target.id == "tituloLista")
+                document.getElementById("añadirLista0").click(); 
+            
+        }
+
+    }, false);
+
+
+    
+   
 
 </script>
