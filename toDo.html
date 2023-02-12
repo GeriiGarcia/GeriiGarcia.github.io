@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>To Do List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            text-align: center;
+        }
+        
+        div {
+            margin: 80px auto auto 80px;
+            text-align: center;
+        }
+        
+        .lista {
+            margin: 100px auto;
+            border-width: thin;
+            border-color: black;
+            border-style: solid;
+            padding: 10px 30px 10px 30px;
+            min-width: 500px;
+            width: max-content;
+            border-radius: 10px;
+        }
+        
+        .tareas {
+            text-align: left;
+            margin: 10px auto;
+            width: 220px;
+            height: 50px;
+            background-color: #d8dbe0;
+            border-radius: 5px;
+            color: #000000;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .Atareas {
+            display: none;
+            margin: 10px auto;
+        }
+        
+        .tarea {
+            display: flex;
+            text-align: center;
+            display: flex;
+            margin: 10px auto;
+            width: 50%;
+            height: 20px;
+
+        }
+        
+        .add {
+            width: 20px;
+            height: 20px;
+            margin: 10px auto auto -100px;
+            cursor: pointer;
+        }
+        
+        input {
+            display: none;
+            border: none;
+        }
+        
+        li {
+            list-style-type: none;
+            margin: 10px auto 10px auto;
+        }
+
+        .titulo{
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        /* Style the list items */
+        .lista ul li {
+          cursor: pointer;
+          position: relative;
+          padding: 12px 8px 12px 40px;
+          list-style-type: none;
+          background: #eee;
+          font-size: 18px;
+          transition: 0.2s;
+          border-radius: 10px;
+        
+          /* make the list items unselectable */
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+        
+        /* Set all odd list items to a different color (zebra-stripes) */
+        .lista ul li:nth-child(odd) {
+          background: #f9f9f9;
+        }
+        
+        /* Darker background-color on hover */
+        .lista ul li:hover {
+          background: #ddd;
+        }
+        
+        /* When clicked on, add a background color and strike out text */
+        .lista ul li.checked {
+          background: #888;
+          color: #fff;
+          text-decoration: line-through;
+        }
+        
+        /* Style the close button */
+        .lista .close {
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding: 12px 16px 12px 16px;
+          border-radius: 10px;
+        }
+        
+        .lista .close:hover {
+          background-color: #f44336;
+          color: white;
+        }
+
+
+        /*-----------------------------------------------------------------------encabezado-----------------------------------------------------*/
+        .encabezado {
+          background: #202020;
+          justify-content: space-around;
+    
+        }
+
+        .encabezado nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+        
+        }
+
+        .encabezado nav h1 {
+            text-align: center;
+            color: white;
+        }
+
+        .encabezado a {
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            padding: 12px 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .encabezado a:hover {
+            background: #444444;
+        }
+
+        .encabezado ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .encabezado nav .menu li ul {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            background: #202020;
+        }
+        
+        .encabezado nav .menu li:hover ul {
+            display: flex;
+            position: absolute;
+            z-index: 3;
+        } 
+
+        /*.volver{  
+            color: #444444;
+            /*margin: 400px 0 0 -50px;
+            margin: 40% 0 0 0;
+        }
+
+        .volver:hover{
+            color:white;
+        }*/
+
+    </style>
+
+   
+</head>
+
+<body>
+
+    <header class="encabezado">
+        <nav>
+            <h1>Gerard's Page</h1>
+            <ul class="menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li>
+                    <a href="">Projects</a>
+                    <ul id="projects">
+                        <li><a href="calculator.html">Calculator</a></li>
+                        <li><a href="AgeCalculator.html">Age Calculator</a></li>
+                        <li><a href="DigitalClock.html">Digital Clock</a></li>
+                        <li><a href="#">Password Generator</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Contacto</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+
+
+    <div class="lista" id="lista0">
+        <button onclick="pulsarAñadir(0);" class="tareas" id="añadirLista0">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            + Añadir Lista
+        </button>
+        <input type="text" placeholder="Titulo de lista" class="tarea" id="tituloLista">
+
+        <div class="Atareas" id="añadirTarea0">
+            <input type="text" placeholder="Añadir tarea" class="tarea" id="myInput0">
+            <button class="add" onclick="añadirTarea(0);">+</button>
+        </div>
+        <ul id="ListaTarea0">
+        </ul>
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+    let numListas = 0;
+
+    function nuevaL(){
+        let titulo = document.getElementById("tituloLista").value;
+        if(titulo == "")
+            titulo = "Lista";
+        let nuevaLista = `<p class="titulo">` + titulo + `<\p>
+        <button onclick="pulsarAñadir(` + numListas.toString() + `);" class="tareas" id="añadirLista` + numListas.toString() + `">
+            <input type = 'checkbox'>
+            <span class = 'slider'></span>
+            + Añadir Lista
+        </button>
+
+        <div class="Atareas" id="añadirTarea` + numListas.toString() + `">
+                    <input type="text" placeholder="Añadir tarea" class="tarea" id="myInput` + numListas.toString() + `">
+                    <button class="add" onclick="añadirTarea(` + numListas.toString() + `);">+</button>
+                </div>
+
+        <ul id="ListaTarea` + numListas.toString() + `">
+        
+        </ul>`;
+        return nuevaLista;
+    }
+
+    function añadirNumLista() {
+        numListas = numListas + 1;
+        return numListas;
+    }
+
+    function pulsarAñadir(num) {
+        clonar();
+        document.getElementById("tituloLista").value = ""; 
+        if(num == 0)
+        {
+            aux = numListas;
+            document.getElementById("añadirTarea" + aux.toString()).style.display = "flex";
+            document.getElementById("añadirLista" + aux.toString()).style.display = "none";
+        }
+        else
+        {
+            document.getElementById("añadirTarea" + num.toString()).style.display = "flex";
+            document.getElementById("añadirLista" + num.toString()).style.display = "none";
+        }
+    }
+
+    function clonar() {
+        var c = document.getElementById("lista0");
+        var clon = c.cloneNode(true); //si es true se copia el sub arbol, osea todo el elemento entero
+        añadirNumLista()
+
+        c.innerHTML = nuevaL();
+        var x = "lista";
+        x.replace(x.length, '');
+        x = x + numListas.toString();
+        c.id = x;
+
+        document.body.appendChild(clon);
+
+    }
+
+    function añadirTarea(num) {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput" + num.toString()).value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        li.className = 'no';
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("ListaTarea" + num.toString()).appendChild(li);
+        }
+        document.getElementById("myInput" + num.toString()).value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+  
+    }
+
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+            }
+
+    }
+
+    /*añadir o quitrar la classe checked cuando se pulsa en un li*/
+
+    document.addEventListener('click', function(ev) {
+        if (ev.target.tagName === 'LI' && ev.target.className == 'no') 
+          ev.target.className = 'checked';
+        else if(ev.target.className == 'checked' && ev.target.tagName === 'LI')
+          ev.target.className = 'no';
+    }, false);
+ 
+
+    /*Pulsar enter y que pasen cosas*/
+
+    
+
+    document.addEventListener("keypress", function(ev) {
+
+        if (ev.key === "Enter")
+        {
+            ev.preventDefault(); 
+            
+            if (ev.target.tagName === 'INPUT' && ev.target.className == 'tarea' && ev.target.id != "tituloLista") 
+            {
+                let num = ev.target.id[ev.target.id.length -1];
+                var padre = document.getElementById("añadirTarea" + num.toString());
+                
+                let children = padre.childNodes;
+                
+                for (const node of children) {
+
+                    if(node.className == "add")
+                    {
+                        node.click();
+                    }
+                }
+            }
+            else if(ev.target.tagName === 'INPUT' && ev.target.className == 'tarea' && ev.target.id == "tituloLista")
+                document.getElementById("añadirLista0").click(); 
+            
+        }
+
+    }, false);
+
+
+    
+   
+
+</script>
