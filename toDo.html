@@ -18,173 +18,348 @@
             text-align: center;
         }
         
-        div {
-            margin: 80px auto auto 80px;
-            text-align: center;
+
+        @media screen and (min-width: 550px) {
+            div {
+                margin: 80px auto auto 80px;
+                text-align: center;
+            }
+
+            .lista {
+                margin: 100px auto;
+                border-width: thin;
+                border-color: black;
+                border-style: solid;
+                padding: 10px 30px 10px 30px;
+                min-width: 500px;
+                width: max-content;
+                border-radius: 10px;
+            }
+
+            .tareas {
+                text-align: left;
+                margin: 10px auto;
+                width: 220px;
+                height: 50px;
+                background-color: #d8dbe0;
+                border-radius: 5px;
+                color: #000000;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+            }
+
+            .Atareas {
+                display: none;
+                margin: 10px auto;
+            }
+
+            .tarea {
+                display: flex;
+                text-align: center;
+                display: flex;
+                margin: 10px auto;
+                width: 50%;
+                height: 20px;
+
+            }
+
+            .add {
+                width: 20px;
+                height: 20px;
+                margin: 10px auto auto -100px;
+                cursor: pointer;
+            }
+
+            input {
+                display: none;
+                border: none;
+            }
+
+            li {
+                list-style-type: none;
+                margin: 10px auto 10px auto;
+            }
+
+            .titulo{
+                font-size: 18px;
+                padding: 10px;
+            }
+
+            /* Style the list items */
+            .lista ul li {
+              cursor: pointer;
+              position: relative;
+              padding: 12px 8px 12px 40px;
+              list-style-type: none;
+              background: #eee;
+              font-size: 18px;
+              transition: 0.2s;
+              border-radius: 10px;
+            
+              /* make the list items unselectable */
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
+
+            /* Set all odd list items to a different color (zebra-stripes) */
+            .lista ul li:nth-child(odd) {
+              background: #f9f9f9;
+            }
+
+            /* Darker background-color on hover */
+            .lista ul li:hover {
+              background: #ddd;
+            }
+
+            /* When clicked on, add a background color and strike out text */
+            .lista ul li.checked {
+              background: #888;
+              color: #fff;
+              text-decoration: line-through;
+            }
+
+            /* Style the close button */
+            .lista .close {
+              position: absolute;
+              right: 0;
+              top: 0;
+              padding: 12px 16px 12px 16px;
+              border-radius: 10px;
+            }
+
+            .lista .close:hover {
+              background-color: #f44336;
+              color: white;
+            }
+
+
+            /*-----------------------------------------------------------------------encabezado-----------------------------------------------------*/
+            .encabezado {
+              background: #202020;
+              justify-content: space-around;
+            
+            }
+
+            .encabezado nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px;
+            
+            }
+
+            .encabezado nav h1 {
+                text-align: center;
+                color: white;
+            }
+
+            .encabezado a {
+                text-decoration: none;
+                font-size: 20px;
+                color: white;
+                padding: 12px 20px;
+                display: block;
+                text-align: center;
+            }
+
+            .encabezado a:hover {
+                background: #444444;
+            }
+
+            .encabezado ul {
+                list-style: none;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .encabezado nav .menu li ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background: #202020;
+            }
+
+            .encabezado nav .menu li:hover ul {
+                display: flex;
+                position: absolute;
+                z-index: 3;
+            } 
         }
-        
-        .lista {
-            margin: 100px auto;
-            border-width: thin;
-            border-color: black;
-            border-style: solid;
-            padding: 10px 30px 10px 30px;
-            min-width: 500px;
-            width: max-content;
-            border-radius: 10px;
-        }
-        
-        .tareas {
-            text-align: left;
-            margin: 10px auto;
-            width: 220px;
-            height: 50px;
-            background-color: #d8dbe0;
-            border-radius: 5px;
-            color: #000000;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .Atareas {
-            display: none;
-            margin: 10px auto;
-        }
-        
-        .tarea {
-            display: flex;
-            text-align: center;
-            display: flex;
-            margin: 10px auto;
-            width: 50%;
-            height: 20px;
+        @media screen and (min-width: 200px) and (max-width:550px) {/*------------------------------------*/
+            div {
+                margin: 5rem auto auto 5rem;
+                text-align: center;
+            }
+
+            .lista {
+                margin: 100px auto;
+                border-width: thin;
+                border-color: black;
+                border-style: solid;
+                padding: 10px 30px 10px 30px;
+                min-width: 500px;
+                width: max-content;
+                border-radius: 10px;
+            }
+
+            .tareas {
+                text-align: left;
+                margin: 0.62rem auto;
+                width: 13.75rem;
+                height: 3.12rem;
+                background-color: #d8dbe0;
+                border-radius: 5px;
+                color: #000000;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+            }
+
+            .Atareas {
+                display: none;
+                margin: 0.62rem auto;
+            }
+
+            .tarea {
+                display: flex;
+                text-align: center;
+                display: flex;
+                margin: 0.62rem auto;
+                width: 50%;
+                height: 1.25rem;
+
+            }
+
+            .add {
+                width: 1.25rem;
+                height: 1.25rem;
+                margin: 0.6rem auto auto -100px;
+                cursor: pointer;
+            }
+
+            input {
+                display: none;
+                border: none;
+            }
+
+            li {
+                list-style-type: none;
+                margin: 0.6rem auto 0.6rem auto;
+            }
+
+            .titulo{
+                font-size: 1.1rem;
+                padding: 0.6rem;
+            }
+
+            /* Style the list items */
+            .lista ul li {
+              cursor: pointer;
+              position: relative;
+              padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+              list-style-type: none;
+              background: #eee;
+              font-size: 1.1rem;
+              transition: 0.2s;
+              border-radius: 0.7rem;
+            
+              /* make the list items unselectable */
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
+
+            /* Set all odd list items to a different color (zebra-stripes) */
+            .lista ul li:nth-child(odd) {
+              background: #f9f9f9;
+            }
+
+            /* Darker background-color on hover */
+            .lista ul li:hover {
+              background: #ddd;
+            }
+
+            /* When clicked on, add a background color and strike out text */
+            .lista ul li.checked {
+              background: #888;
+              color: #fff;
+              text-decoration: line-through;
+            }
+
+            /* Style the close button */
+            .lista .close {
+              position: absolute;
+              right: 0;
+              top: 0;
+              padding: 0.8rem 1rem 0.8rem 1rem;
+              border-radius: 10px;
+            }
+
+            .lista .close:hover {
+              background-color: #f44336;
+              color: white;
+            }
+
+
+            /*-----------------------------------------------------------------------encabezado-----------------------------------------------------*/
+            .encabezado {
+              background: #202020;
+              justify-content: space-around;
+                width: 100%;
+            }
+
+            .encabezado nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px;
+            
+            }
+
+            .encabezado nav h1 {
+                text-align: center;
+                color: white;
+            }
+
+            .encabezado a {
+                text-decoration: none;
+                font-size: 20px;
+                color: white;
+                padding: 0.75rem 1.25rem;
+                display: block;
+                text-align: center;
+            }
+
+            .encabezado a:hover {
+                background: #444444;
+            }
+
+            .encabezado ul {
+                list-style: none;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .encabezado nav .menu li ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background: #202020;
+            }
+
+            .encabezado nav .menu li:hover ul {
+                display: flex;
+                position: absolute;
+                z-index: 3;
+            } 
+
 
         }
-        
-        .add {
-            width: 20px;
-            height: 20px;
-            margin: 10px auto auto -100px;
-            cursor: pointer;
-        }
-        
-        input {
-            display: none;
-            border: none;
-        }
-        
-        li {
-            list-style-type: none;
-            margin: 10px auto 10px auto;
-        }
 
-        .titulo{
-            font-size: 18px;
-            padding: 10px;
-        }
-
-        /* Style the list items */
-        .lista ul li {
-          cursor: pointer;
-          position: relative;
-          padding: 12px 8px 12px 40px;
-          list-style-type: none;
-          background: #eee;
-          font-size: 18px;
-          transition: 0.2s;
-          border-radius: 10px;
-        
-          /* make the list items unselectable */
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        
-        /* Set all odd list items to a different color (zebra-stripes) */
-        .lista ul li:nth-child(odd) {
-          background: #f9f9f9;
-        }
-        
-        /* Darker background-color on hover */
-        .lista ul li:hover {
-          background: #ddd;
-        }
-        
-        /* When clicked on, add a background color and strike out text */
-        .lista ul li.checked {
-          background: #888;
-          color: #fff;
-          text-decoration: line-through;
-        }
-        
-        /* Style the close button */
-        .lista .close {
-          position: absolute;
-          right: 0;
-          top: 0;
-          padding: 12px 16px 12px 16px;
-          border-radius: 10px;
-        }
-        
-        .lista .close:hover {
-          background-color: #f44336;
-          color: white;
-        }
-
-
-        /*-----------------------------------------------------------------------encabezado-----------------------------------------------------*/
-        .encabezado {
-          background: #202020;
-          justify-content: space-around;
-    
-        }
-
-        .encabezado nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px;
-        
-        }
-
-        .encabezado nav h1 {
-            text-align: center;
-            color: white;
-        }
-
-        .encabezado a {
-            text-decoration: none;
-            font-size: 20px;
-            color: white;
-            padding: 12px 20px;
-            display: block;
-            text-align: center;
-        }
-
-        .encabezado a:hover {
-            background: #444444;
-        }
-
-        .encabezado ul {
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .encabezado nav .menu li ul {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            background: #202020;
-        }
-        
-        .encabezado nav .menu li:hover ul {
-            display: flex;
-            position: absolute;
-            z-index: 3;
-        } 
 
     </style>
 
