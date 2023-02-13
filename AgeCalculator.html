@@ -72,6 +72,15 @@
             return real;
         }
 
+        document.addEventListener("keypress", function(ev) {
+            if(ev.key === "Enter")
+            {
+                ev.preventDefault(); 
+                document.getElementById("testButton").click();
+            }
+        
+        }, false);
+
         function calcular(d,m,a)
         {
             let completa = new Edad(0,0,0);
