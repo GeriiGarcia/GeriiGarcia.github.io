@@ -19,7 +19,7 @@
             }
         }
 
-        function fechaReal(d,m,a, actual)
+        function fechaReal(d,m,a, diaA, mesA,añoA)
         {
             var real = true;
             var bisiesto = false;
@@ -62,7 +62,11 @@
                         
             }
 
-            if(a > actual)
+            if(a > añoA)
+                real = false;
+            else if(a == añoA && m > mesA)
+                real = false;
+            else if(a == añoA && m == mesA && d > diaA)
                 real = false;
 
             return real;
@@ -127,7 +131,7 @@
 
             if(!isNaN(añoNaciemiento) && !isNaN(mesNaciemiento) && !isNaN(diaNacimiento))
             {
-                if(!fechaReal(diaNacimiento, mesNaciemiento, añoNaciemiento, añoActual))
+                if(!fechaReal(diaNacimiento, mesNaciemiento, añoNaciemiento, diaActual, mesActual,añoActual))
                     var t = document.getElementById("TextoEdad").innerHTML = "Fecha Incorrecta";
                 else
                 {
