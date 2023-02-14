@@ -19,7 +19,7 @@
         }
         
 
-        @media screen and (min-width: 550px) {
+        @media screen and (min-width: 565px) {
             div {
                 margin: 80px auto auto 80px;
                 text-align: center;
@@ -188,7 +188,7 @@
                 z-index: 3;
             } 
         }
-        @media screen and (min-width: 200px) and (max-width:550px) {/*------------------------------------*/
+        @media screen and (min-width: 200px) and (max-width:565px) {/*------------------------------------*/
             div {
                 margin: 5rem auto auto 5rem;
                 text-align: center;
@@ -200,7 +200,8 @@
                 border-color: black;
                 border-style: solid;
                 padding: 10px 30px 10px 30px;
-                min-width: 500px;
+                min-width: max-content;
+                max-width: 15rem;
                 width: max-content;
                 border-radius: 10px;
             }
@@ -236,7 +237,7 @@
             .add {
                 width: 1.25rem;
                 height: 1.25rem;
-                margin: 0.6rem auto auto -100px;
+                margin: 0.6rem auto auto;
                 cursor: pointer;
             }
 
@@ -248,15 +249,28 @@
             li {
                 list-style-type: none;
                 margin: 0.6rem auto 0.6rem auto;
+
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: 15rem;
+            }
+
+            p{
+                
+                overflow: hidden;
+                white-space: initial;
             }
 
             .titulo{
                 font-size: 1.1rem;
                 padding: 0.6rem;
+                max-width: 15rem;
             }
 
             /* Style the list items */
             .lista ul li {
+                white-space: initial;
+                
               cursor: pointer;
               position: relative;
               padding: 0.8rem 0.8rem 0.8rem 2.5rem;
