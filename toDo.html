@@ -390,7 +390,7 @@
    
 </head>
 
-<body>
+<body id="body">
 
     <header class="encabezado">
         <nav>
@@ -497,6 +497,14 @@
 
     }
 
+    function guardar()
+    {
+        localStorage.clear();
+        let body = document.getElementById("body").innerHTML;
+        localStorage.setItem("body2", body);
+        localStorage.setItem("numListas", numListas);
+    }
+
     function añadirTarea(num) {
         var li = document.createElement("li");
         var inputValue = document.getElementById("myInput" + num.toString()).value;
@@ -523,6 +531,7 @@
             }
         }
 
+       guardar();
   
     }
 
@@ -543,6 +552,9 @@
           ev.target.className = 'checked';
         else if(ev.target.className == 'checked' && ev.target.tagName === 'LI')
           ev.target.className = 'no';
+
+        guardar();
+        
     }, false);
  
 
@@ -556,8 +568,7 @@
             
             if (ev.target.tagName === 'INPUT' && ev.target.className == 'tarea' && ev.target.id != "tituloLista") 
             {
-                let num = ev.target.id[ev.target.id.length -1];
-                var padre = document.getElementById("añadirTarea" + num.toString());
+                var padre = document.getElementById(ev.target.parentElement.id);
                 
                 let children = padre.childNodes;
                 
@@ -577,7 +588,24 @@
     }, false);
 
 
+    /*al abrir*/
+    window.onload = function arraglao(){
+        let body = localStorage.getItem("body2");
+        
+        if(body == undefined)
+        {
+            console.log("Indefinido");
+        }
+        else
+        {
+            console.log("No undefined");
+            document.getElementById("body").innerHTML = body;
+            numListas = localStorage.getItem("numListas");
+        }
     
-   
+    }
+
+       
+
 
 </script>
