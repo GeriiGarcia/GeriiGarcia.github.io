@@ -535,15 +535,16 @@
   
     }
 
-    var close = document.getElementsByClassName("close");
-    var i;
-    for (i = 0; i < close.length; i++) {
-        close[i].onclick = function() {
-            var div = this.parentElement;
+    /*Funcion para eliminar la tarea cuando le das a la x*/
+    document.addEventListener('click', function(ev){
+        if(ev.target.className == "close")
+        {
+            var div = ev.target.parentElement;
             div.style.display = "none";
-            }
+        }
+        
 
-    }
+    }, false);
 
     /*añadir o quitrar la classe checked cuando se pulsa en un li*/
 
