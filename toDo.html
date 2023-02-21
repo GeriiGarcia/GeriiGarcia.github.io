@@ -22,12 +22,12 @@
 
         @media screen and (min-width: 565px) {
             div {
-                margin: 80px auto auto 80px;
+                margin: 1.5rem auto auto 8rem;
                 text-align: center;
             }
 
             .lista {
-                margin: 100px auto;
+                margin: 5rem auto;
                 border-width: thin;
                 border-color: black;
                 border-style: solid;
@@ -90,9 +90,37 @@
             }
 
             .titulo{
-                font-size: 18px;
                 padding: 10px;
-                
+                display: flex;
+                height: min-content;
+            }
+
+            .closeL{
+                right: 0px;
+              
+              top: 0;
+              margin-left: 7rem;
+              border-radius: 10px;
+            }
+
+            .closeL:hover{
+              background-color: #f44336;
+              color: white;
+            }
+
+            .titulo span{
+                width: 2rem;
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .titulo p{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
             }
 
             /* Style the list items */
@@ -276,6 +304,34 @@
                 max-width: 15rem;
             }
 
+            .closeL{
+                right: 0px;
+              
+              top: 0;
+              margin-left: 7rem;
+              border-radius: 10px;
+            }
+
+            .closeL:hover{
+              background-color: #f44336;
+              color: white;
+            }
+
+            .titulo span{
+                width: 2rem;
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .titulo p{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+            }
+
             /* Style the list items */
             .lista ul li {
                 white-space: initial;
@@ -443,7 +499,7 @@
         let titulo = document.getElementById("tituloLista").value;
         if(titulo == "")
             titulo = "Lista";
-        let nuevaLista = `<p class="titulo">` + titulo + `<\p>
+        let nuevaLista = `<div class="titulo"> <p>` + titulo + `</p> <span class="closeL">x</span> </div>
         <button onclick="pulsarAñadir(` + numListas.toString() + `);" class="tareas" id="añadirLista` + numListas.toString() + `">
             <input type = 'checkbox'>
             <span class = 'slider'></span>
@@ -535,15 +591,21 @@
   
     }
 
-    var close = document.getElementsByClassName("close");
-    var i;
-    for (i = 0; i < close.length; i++) {
-        close[i].onclick = function() {
-            var div = this.parentElement;
+    /*Funcion para eliminar la tarea o lista cuando le das a la x*/
+    document.addEventListener('click', function(ev){
+        if(ev.target.className == "close")
+        {
+            var div = ev.target.parentElement;
             div.style.display = "none";
-            }
-
-    }
+        }
+        else if(ev.target.className == "closeL")
+        {
+            var div = ev.target.parentElement;
+            div = div.parentElement;
+            div.style.display = "none";
+        }
+                
+    }, false);
 
     /*añadir o quitrar la classe checked cuando se pulsa en un li*/
 
