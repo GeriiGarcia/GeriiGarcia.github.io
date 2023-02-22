@@ -160,9 +160,15 @@ ul {
 }
 
 @media screen and (min-width: 30px) and (max-width:1024px) { /*Mobiles*/
-    *{
+        *{
             margin: 0; 
             padding: 0;
+        }
+
+        html{
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
         }
 
         body{
@@ -259,12 +265,12 @@ ul {
 
         .encabezado {
     background: #202020;
-    justify-content: space-around;
+    position: static;
     
 }
 
     .encabezado nav {
-        display: flex;
+        display: contents;
         justify-content: space-around;
         align-items: center;
         padding: 10px;
