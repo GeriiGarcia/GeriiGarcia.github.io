@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sliding Puzzle</title>
+
+    <style>
+        @font-face {
+            font-family: Ubuntu-Title;
+            src: url("Ubuntu-Title.ttf");
+        }
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        body{
+            text-align: center;
+        }
+
+
+        #juego{
+            width: 22rem;
+            height: 22rem;
+            /*background-color: aqua;*/
+            display: flex;
+            margin: 0.1rem auto 3rem auto;
+        }
+
+        .pieza{
+            width: 5rem;
+            height: 5rem;
+            background-color: yellow;
+            border-width: 2px;
+            border-style: solid;
+            
+            border-radius: 0.25rem;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pieza p{
+            font-size: 50px;
+            font-family: 'Ubuntu-Title';
+             
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+            -webkit-user-drag: none;
+        }
+
+        #pieza000{
+            background-color: rgb(160,160,000);
+        }
+
+        #pieza00{
+            background-color: rgb(160,160,000);
+        }
+
+        #jugar{
+            margin: 0 auto;
+            width: 22rem;
+            height: max-content;
+            padding: 0.75rem;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            font-size: 20px;
+        }
+
+        input{
+            position: absolute;
+            display: none;
+            
+        }
+
+        #stats{
+            margin: 4rem auto 0.75rem auto;
+            display: flex;
+            width: max-content;
+        }
+
+        #stats p{
+            width: 8rem;
+            margin: auto 0.1rem auto 0.1rem;
+        }
+
+        /*encabezado----------------------------------------------------------------------------------------------*/
+        @media screen and (min-width: 500px) {
+        .encabezado {
+                background: #202020;
+                justify-content: space-around;
+                position: static;
+            }
+            .encabezado nav{
+                display: flex;
+                justify-content: space-around;
+                align-items:center;
+                padding: 10px;
+            }
+
+            .encabezado nav h1{
+                text-align: center;
+                color: white;
+            }
+
+            a{
+                text-decoration:none;
+                font-size:20px;
+                color: white;
+                padding: 12px 20px;
+                display: block;
+                text-align:center;
+            }
+
+            a:hover {
+                background: #444444;
+            }
+
+            ul{
+                list-style:none;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .encabezado nav .menu li ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background: #202020;
+            }
+
+            .encabezado nav .menu li:hover ul{
+                display:flex;
+                position:absolute; 
+                z-index: 3;
+            } 
+
+        }
+
+        @media screen and (max-width: 500px) {
+            html{
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+                overflow-x: hidden;
+            }
+            header {
+                
+            }
+
+            .encabezado {
+                background: #202020;
+                position: static;
+                
+            }
+            .encabezado nav{
+                display: contents;
+                justify-content: space-around;
+                align-items:center;
+                padding: 10px;
+            }
+
+            .encabezado nav h1{
+                text-align: center;
+                color: white;
+            }
+
+            a{
+                text-decoration:none;
+                font-size:20px;
+                color: white;
+                padding: 12px 20px;
+                display: block;
+                text-align:center;
+                
+                
+            }
+
+            a:hover {
+                background: #444444;
+            }
+
+            ul{
+                list-style:none;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .encabezado nav .menu li ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                background: #202020;
+            }
+
+            .encabezado nav .menu li:hover ul{
+                display:flex;
+                position:absolute; 
+            } 
+
+        }
+        
+        
+    </style>
+
+    <script>
+        /*Variables generals*/
+        const N = 4;
+        let strikes = 0;
+        let vecinos;
+        const matriz_resuelta = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]; 
+        let matriz_juego = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]; 
+        let fin = true;
+        let moviments = 0;
+        let time = 0;
+
+
+function getInvCount(arr) {
+  let inv_count = 0;
+  for (let i = 0; i < N * N - 1; i++)
+  {
+    for (let j = i + 1; j < N * N; j++)
+    {
+     
+      // count pairs(arr[i], arr[j]) such that
+      // i < j but arr[i] > arr[j]
+      if (arr[j] && arr[i] > arr[j])
+        inv_count++;
+    }
+  }
+  return inv_count;
+}
+ 
+// find Position of blank from bottom
+function findXPosition(puzzle)
+{
+ 
+  // start from bottom-right corner of matrix
+  for (let i = N - 1; i >= 0; i--)
+    for (let j = N - 1; j >= 0; j--)
+      if (puzzle[i][j] == 0)
+        return N - i;
+}
+ 
+// This function returns true if given
+// instance of N*N - 1 puzzle is solvable
+function isSolvable(puzzle, arr)
+{
+ 
+  // Count inversions in given puzzle
+  let invCount = getInvCount(arr);
+ 
+  // If grid is odd, return true if inversion
+  // count is even.
+  if (N & 1)
+    return !(invCount & 1);
+ 
+  else {     // grid is even
+    let pos = findXPosition(puzzle);
+    if (pos & 1)
+      return !(invCount & 1);
+    else
+      return invCount & 1;
+  }
+}
+
+        function cambiar(i,j, num2){/*num1 = posicion normal, num2= posicion que deberia tener*/
+            /*cambio todo el html*/
+            let num1S = "";
+            let num2S = "";
+
+            let num1 = matriz_resuelta[i][j];
+            if(num1 <= 9)
+                num1S = "0" + num1.toString();
+            else
+                num1S = num1.toString();
+
+            if(num2 <= 9)
+                num2S = "0" + num2.toString();
+            else
+                num2S = num2.toString();
+                        
+
+            document.getElementById("pieza0" + num1S).innerHTML = "<p>" + num2.toString() + "</p>";
+            document.getElementById("pieza0" + num1S).id = "pieza" + num2S;
+            
+        }
+
+        function iniciar(){
+            fin = !fin;
+            moviments = 0;
+            document.getElementById("moviments").innerText = "Moviments: " + moviments.toString();
+            resetTiempo();
+
+            document.getElementById("jugar").style.display = 'none';
+            /*desordeno i muestro puzzle desordenado*/
+
+            let muestra = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
+            muestra = muestra.sort(() => Math.random() - 0.5);
+
+            for(let i = 0; i < matriz_juego.length; i++)
+            {
+                for(let j = 0; j < matriz_juego.length; j++)
+                {
+                    matriz_juego[i][j] = muestra[j + 4*i]
+                }
+            }
+
+            /*matriz se puede resolver????????????????????????????????????????????????????????????????????????????*/
+            while(!isSolvable(matriz_juego, muestra))
+            {
+                console.log("No puedo");
+                muestra = muestra.sort(() => Math.random() - 0.5);
+                for(let i = 0; i < matriz_juego.length; i++)
+                {
+                    for(let j = 0; j < matriz_juego.length; j++)
+                    {
+                        matriz_juego[i][j] = muestra[j + 4*i]
+                    }
+                }
+            }
+
+            console.log("Ya puedo");
+            console.log(muestra);
+            console.log(matriz_juego);
+
+            for(let i = 0; i < matriz_juego.length; i++)
+            {
+                for(let j = 0; j < matriz_juego.length; j++)
+                {
+                    cambiar(i,j, matriz_juego[i][j]);
+                }
+            }
+
+            document.getElementById("pieza00").innerText = "";
+            
+        }
+
+        /*Nos indica si puede moverse o no una pieza al espacio*/
+        function puedeMoverse(num) { 
+
+            /*tengo que sacar el numero por que paso el id de la pieza*/
+            let numero = parseInt(num[num.length - 2] + num[num.length - 1]);
+            
+            /*busco el 0 i pongo su fila i su columna en variables     */                    /*   basicamente busco cada click donde esta el 0 ya que cuando genero el puzle aleatoriamente,
+            /*miro que vecinos tiene  */                                                     /*   no puedo determinar donde esta el 0, podria determinar la posicion del 0 al principio del juego
+            /*si uno de sus vecinos coincide con numero, entonces puede moverse    */        /*   y crear variables que sigan la posicion del 0 */
+            let fila = 0;
+            let columna = 0;
+            for(let i = 0; i < matriz_juego.length; i++)
+            {
+                for (let j = 0; j < matriz_juego.length; j++) {
+                    if (matriz_juego[i][j] == 0) {
+                        fila = i;
+                        columna = j;
+                    }
+                }
+            }
+            
+            vecinos = [];
+            if(fila - 1 >= 0) /*arriba*/
+                vecinos.push(matriz_juego[fila-1][columna]);
+            else
+                vecinos.push(-1);
+            
+            if(fila + 1 <= 3) /*abajo*/
+                vecinos.push(matriz_juego[fila+1][columna]);
+            else
+                vecinos.push(-1);
+
+            if(columna - 1 >= 0) /*izquierda*/
+                vecinos.push(matriz_juego[fila][columna - 1]);
+            else
+                vecinos.push(-1);
+
+            if(columna + 1 <= 3) /*derecha*/
+                vecinos.push(matriz_juego[fila][columna+1]);
+            else
+                vecinos.push(-1);
+                
+            if(vecinos.includes(numero))
+            {
+                for(let i = 0; i < matriz_juego.length; i++)
+                {
+                    for (let j = 0; j < matriz_juego.length; j++) {  
+                        if(matriz_juego[i][j] == numero)
+                            matriz_juego[i][j] = 0; 
+                    }
+                }
+                matriz_juego[fila][columna] = numero;
+                return true;
+            }
+                
+            else
+                return false;
+        }
+
+        function comprobar(){
+            var iguales = true;
+            for(var i =0; i < matriz_juego.length;i++){
+                for(var j =0; j < matriz_juego.length;j++){
+                     if(matriz_juego[i][j] != matriz_resuelta[i][j]){
+                         iguales = false;
+                         break;
+                     }
+                }
+                if(!iguales){
+                   break;
+                }
+            }
+
+            if(iguales){
+                fin = 1;
+                document.getElementById("strikes").innerText = "Strikes: " + ++strikes;
+                localStorage.setItem("strikes",strikes);
+                document.getElementById("jugar").style.display = 'inherit';
+                pauseTiempo();
+                for(let i = 0; i < matriz_juego.length; i++)
+                {
+                    for (let j = 0; j < matriz_juego.length; j++) {  
+                        
+                        if((j + 4*i) <= 9)
+                            document.getElementById("pieza0" + (j + 4*i).toString()).id = "pieza00" + (j + 4*i).toString();
+                        else
+                            document.getElementById("pieza" + (j + 4*i).toString()).id = "pieza0" + (j + 4*i).toString();
+                        
+                    }
+                }
+            }
+           
+        }
+
+        document.addEventListener('click',function(ev){
+            
+            if((ev.target.className == "pieza" || ev.target.tagName === "P") && fin == 0)
+            {
+                ev.preventDefault();
+                let idM;
+                if(ev.target.tagName === "P")
+                {
+                    idM = ev.target.parentElement.id;
+                }
+                else
+                {
+                    idM = document.getElementById(ev.target.id).id;
+                }
+                
+                if(puedeMoverse(idM))
+                {
+                    if(moviments == 0)
+                        empezarTiempo();
+                    
+                        
+                    /*cambio todo el html*/
+                    let vacio = document.getElementById("pieza00");
+                    let mover = document.getElementById("pieza" + idM[idM.length - 2] + idM[idM.length - 1]);
+
+                    let idV = vacio.id;
+                    let textM = mover.innerHTML;
+
+                    vacio.innerHTML = textM;
+                    mover.innerHTML = "<p></p>";
+
+
+                    vacio.id=mover.id;
+                    mover.id = idV;
+
+                    moviments++;
+                    document.getElementById("moviments").innerText = "Moviments: " + moviments.toString();
+
+                    comprobar();
+                }
+                   
+            }
+            else if((ev.target.className == "pieza" || ev.target.tagName === "P") && fin == 1)
+            {
+                ev.preventDefault();
+                document.getElementById("jugar").click();
+            }
+            
+        }, false);
+
+
+
+    </script>
+</head>
+<body>
+
+    <div>
+
+        <header class="encabezado">
+            <nav>
+                <h1>Gerard's Page</h1>
+                <ul class="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li>
+                        <a >Projects</a>
+                        <ul>
+                            <li><a href="calculator.html">Calculator</a></li>
+                            <li><a href="AgeCalculator.html">Age Calculator</a></li>
+                            <li><a href="DigitalClock.html">Digital Clock</a></li>
+                            <li><a href="PG.html">Password Generator</a></li>
+                            <li><a href="toDo.html">To Do List</a></li>
+                            <li><a href="#">15 Puzzle</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Contacto</a></li>
+                </ul>
+            </nav>
+
+        </header>
+
+    </div>
+
+
+    <div id="stats">
+        <p id="moviments">Moviments: 0</p> 
+        <p id="strikes">Strikes: 0</p>
+        <div id="tiempo">
+            <p id="temps">Temps:</p> 
+            <label id="minutes">00</label>
+            <label id="colon">:</label>
+            <label id="seconds">00</label> 
+        </div>
+        
+
+    </div>
+    
+    <div id="juego">
+
+        <table>
+            <tr>
+                <td><div class="pieza" id="pieza001"><p>1</p></div></td>
+                <td><div class="pieza" id="pieza002"><p>2</p></div></td>
+                <td><div class="pieza" id="pieza003"><p>3</p></div></td>
+                <td><div class="pieza" id="pieza004"><p>4</p></div></td>
+            </tr>
+            <tr>
+                <td><div class="pieza" id="pieza005"><p>5</p></div></td>
+                <td><div class="pieza" id="pieza006"><p>6</p></div></td>
+                <td><div class="pieza" id="pieza007"><p>7</p></div></td>
+                <td><div class="pieza" id="pieza008"><p>8</p></div></td>
+            </tr>
+            <tr>
+                <td><div class="pieza" id="pieza009"><p>9</p></div></td>
+                <td><div class="pieza" id="pieza010"><p>10</p></div></td>
+                <td><div class="pieza" id="pieza011"><p>11</p></div></td>
+                <td><div class="pieza" id="pieza012"><p>12</p></div></td>
+            </tr>
+            <tr>
+                <td><div class="pieza" id="pieza013"><p>13</p></div></td>
+                <td><div class="pieza" id="pieza014"><p>14</p></div></td>
+                <td><div class="pieza" id="pieza015"><p>15</p></div></td>
+                <td><div class="pieza" id="pieza000"></div></td>
+            </tr>
+            
+        </table>
+
+              
+        
+    </div>
+
+    
+    <button onclick="iniciar()" id="jugar">
+        <input type = 'checkbox'>
+        <span class = 'slider'></span>
+        Jugar
+    </button>
+
+</body>
+
+<script>
+    let moverPieza = 0;
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    var totalSeconds = 0;
+    var refreshIntervalId;
+
+    function empezarTiempo()
+    {
+        refreshIntervalId = setInterval(setTime, 1000);
+    }
+
+    function pauseTiempo()
+    {
+        clearInterval(refreshIntervalId); 
+    }
+
+    function resetTiempo()
+    {
+        clearInterval(refreshIntervalId); 
+        totalSeconds = 0;
+        secondsLabel.innerHTML = "00";
+        minutesLabel.innerHTML = "00";
+    }
+    
+    function setTime()
+    {
+        ++totalSeconds;
+        secondsLabel.innerHTML = pad(totalSeconds%60);
+        minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+    }
+
+    function pad(val)
+    {
+        var valString = val + "";
+        if(valString.length < 2)
+        {
+            return "0" + valString;
+        }
+        else
+        {
+            return valString;
+        }
+    }
+
+
+    /*al abrir*/
+    window.onload = function arraglao(){
+        let strikes2 = localStorage.getItem("strikes");
+        
+        if(strikes2 == undefined)
+        {
+            console.log("Indefinido");
+        }
+        else
+        {
+            strikes = strikes2
+            document.getElementById("strikes").innerHTML = "Strikes: " + strikes2;
+        }
+    
+    }
+
+
+
+    /*flexas------------------------------------------------------------------------------*/
+    document.addEventListener("keydown", function(ev){
+
+        puedeMoverse(10);
+
+        if(moverPieza == 0)
+        {
+            if(ev.key === "ArrowUp") /*arriba*/
+            {
+                if(vecinos[1] != -1)
+                {
+                    if(vecinos[1] <=9)
+                        document.getElementById("pieza0" + vecinos[1].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[1].toString()).click();
+                }
+            }
+            else if(ev.key === "ArrowDown") /*abajo*/
+            {
+                if(vecinos[0] != -1)
+                {
+                    if(vecinos[0] <=9)
+                        document.getElementById("pieza0" + vecinos[0].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[0].toString()).click();
+                }
+            }
+            else if(ev.key === "ArrowLeft") /*izquierda*/
+            {
+                if(vecinos[3] != -1)
+                {
+                    if(vecinos[3] <=9)
+                        document.getElementById("pieza0" + vecinos[3].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[3].toString()).click();
+                }
+            }
+            else if(ev.key === "ArrowRight") /*derecha*/
+            {
+                if(vecinos[2] != -1)
+                {
+                    if(vecinos[2] <=9)
+                        document.getElementById("pieza0" + vecinos[2].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[2].toString()).click();
+                }
+            }
+        }
+        else
+        {
+            if(ev.key === "ArrowUp") /*arriba*/
+            {
+                if(vecinos[0] != -1)
+                {
+                    if(vecinos[0] <=9)
+                        document.getElementById("pieza0" + vecinos[0].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[0].toString()).click();
+                }
+            }
+            else if(ev.key === "ArrowDown") /*abajo*/
+            {
+                if(vecinos[1] != -1)
+                {
+                    if(vecinos[1] <=9)
+                        document.getElementById("pieza0" + vecinos[1].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[1].toString()).click();
+                }
+            }
+            else if(ev.key === "ArrowLeft") /*izquierda*/
+            {
+                if(vecinos[2] != -1)
+                {
+                    if(vecinos[2] <=9)
+                        document.getElementById("pieza0" + vecinos[2].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[2].toString()).click();
+                }
+            }
+            else if(ev.key === "ArrowRight") /*derecha*/
+            {
+                if(vecinos[3] != -1)
+                {
+                    if(vecinos[3] <=9)
+                        document.getElementById("pieza0" + vecinos[3].toString()).click();
+
+                    else
+                        document.getElementById("pieza" + vecinos[3].toString()).click();
+                }
+            }
+        }
+
+
+    }, false);
+</script>
+</html>
