@@ -23,7 +23,67 @@
         }
 
 
-        #juego{
+
+
+        /*classe animacion*/
+        .animate3{ 
+           
+            position: relative;
+            animation: mymove3 500ms forwards;
+        }
+
+        @keyframes mymove3 {
+            0%   {top: 0px; left: 0px;}
+            25%  {top: 0px; left: 100px; }
+            50%  {top: 0px; left: 100px; }
+            75%  {top: 0px; left: 100px; }
+            100% {top: 0px; left: 0px; }
+        }
+
+        .animate1{
+            
+            position: relative;
+            animation: mymove1 500ms forwards;
+        }
+
+        @keyframes mymove1 {
+            0%   {top: 0px; left: 0px; }
+            25%  {top: 100px; left: 0px; }
+            50%  {top: 100px; left: 0px; }
+            75%  {top: 100px; left: 0px; }
+            100% {top: 0px; left: 0px; }
+        }
+
+        .animate2{
+            
+            position: relative;
+            animation: mymove2 500ms forwards;
+        }
+
+        @keyframes mymove2 {
+            0%   {top: 0px; left: 0px;} 
+            25%  {top: -100px; left: 0px; }
+            50%  {top: -100px; left: 0px; }
+            75%  {top: -100px; left: 0px; }
+            100%   {top: 0px; left: 0px; }
+        }
+
+        .animate4{
+            
+            position: relative;
+            animation: mymove4 500ms forwards;
+        }
+
+        @keyframes mymove4 {
+            0%   {top: 0px; left: 0px; } 
+            25%  {top: 0px; left: -100px; }
+            50%  {top: 0px; left: -100px;}
+            75%  {top: 0px; left: -100px;}
+            100%   {top: 0px; left: 0px;} 
+        }
+
+
+        #juego{ 
             width: 22rem;
             height: 22rem;
             /*background-color: aqua;*/
@@ -220,6 +280,7 @@
         let fin = true;
         let moviments = 0;
         let time = 0;
+        let animacionActivada = false;
 
 
 function getInvCount(arr) {
@@ -297,6 +358,7 @@ function isSolvable(puzzle, arr)
             fin = !fin;
             moviments = 0;
             document.getElementById("moviments").innerText = "Moviments: " + moviments.toString();
+            pauseTiempo();
             resetTiempo();
 
             document.getElementById("jugar").style.display = 'none';
@@ -415,7 +477,7 @@ function isSolvable(puzzle, arr)
                    break;
                 }
             }
-
+            
             if(iguales){
                 fin = 1;
                 document.getElementById("strikes").innerText = "Strikes: " + ++strikes;
@@ -433,11 +495,22 @@ function isSolvable(puzzle, arr)
                         
                     }
                 }
+                
             }
+           
            
         }
 
         document.addEventListener('click',function(ev){
+            const bugAnimation = "pieza "
+            if(ev.target.className.match(bugAnimation)) 
+            {
+                ev.target.className = "pieza";
+            }
+            else if((ev.target.tagName === "P" && bugAnimation.includes(ev.target.parentElement.className)))
+            {
+                ev.target.parentElement.className = "pieza";
+            }
             
             if((ev.target.className == "pieza" || ev.target.tagName === "P") && fin == 0)
             {
@@ -446,6 +519,8 @@ function isSolvable(puzzle, arr)
                 if(ev.target.tagName === "P")
                 {
                     idM = ev.target.parentElement.id;
+                    ev.target.parentElement.click();
+                    return 0;
                 }
                 else
                 {
@@ -457,25 +532,62 @@ function isSolvable(puzzle, arr)
                     if(moviments == 0)
                         empezarTiempo();
                     
+                    /*animar*/
+                    const ch = ev.target.children;
+                    let num;
+                    if(ev.target.tagName === "P")
+                        num = parseInt(ev.target.innerHTML);
+                    else
+                    {
+                        num = parseInt(ch[0].innerText);
+                    }
                         
-                    /*cambio todo el html*/
-                    let vacio = document.getElementById("pieza00");
-                    let mover = document.getElementById("pieza" + idM[idM.length - 2] + idM[idM.length - 1]);
 
-                    let idV = vacio.id;
-                    let textM = mover.innerHTML;
+                    let i = 0;
+                    
+                    if(vecinos.includes(num))
+                    {
+                        let trobat = false;
+                        while(trobat == false && i < 4)
+                        {
+                            if(vecinos[i] == num)
+                                trobat = true;
+                            i++;
+                        }
+                        
+                    }
+                    
+                    /*si es P darle .click al padre*/
+                    /*animar*/
+                        
+                    if(animacionActivada)
+                    {
+                        ev.target.classList.add("animate" + i.toString());
+                        setTimeout(function(){ ev.target.classList.remove("animate" + i.toString());                         
+                        }, 75);
 
-                    vacio.innerHTML = textM;
-                    mover.innerHTML = "<p></p>";
-
-
-                    vacio.id=mover.id;
-                    mover.id = idV;
-
-                    moviments++;
-                    document.getElementById("moviments").innerText = "Moviments: " + moviments.toString();
-
-                    comprobar();
+                        /*parte de hueco*/
+                        if(i==2 || i == 4)
+                        {
+                            document.getElementById("pieza00").classList.add(("animate" + (i-1).toString()));
+                            setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i-1).toString()); 
+                            cambiarHTML(idM);
+                            }, 75);
+                        }
+                        else
+                        {
+                            document.getElementById("pieza00").classList.add(("animate" + (i+1).toString()));
+                            setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i+1).toString());
+                            cambiarHTML(idM);
+                            }, 75);
+                        }
+                    }
+                    else
+                    {
+                        cambiarHTML(idM); 
+                    }
+                    
+                    
                 }
                    
             }
@@ -487,7 +599,27 @@ function isSolvable(puzzle, arr)
             
         }, false);
 
+        function cambiarHTML(idM)
+        {
+             /*cambio todo el html*/
+            let vacio = document.getElementById("pieza00");
+            let mover = document.getElementById("pieza" + idM[idM.length - 2] + idM[idM.length - 1]);
 
+            let idV = vacio.id;
+            let textM = mover.innerHTML;
+
+            vacio.innerHTML = textM;
+            mover.innerHTML = "<p></p>";
+
+
+            vacio.id=mover.id;
+            mover.id = idV;
+
+            moviments++;
+            document.getElementById("moviments").innerText = "Moviments: " + moviments.toString();
+
+            comprobar();
+        }
 
     </script>
 </head>
