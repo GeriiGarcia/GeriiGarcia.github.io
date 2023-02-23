@@ -23,6 +23,66 @@
         }
 
 
+
+
+        /*classe animacion*/
+        .animate3{ 
+           
+            position: relative;
+            animation: mymove3 5000ms forwards;
+        }
+
+        @keyframes mymove3 {
+            0%   {top: 0px; left: 0px;}
+            25%  {top: 0px; left: 100px; }
+            50%  {top: 100px; left: 100px;}
+            75%  {top: 100px; left: 0px; }
+            100% {top: 0px; left: 0px; } 
+        }
+
+        .animate1{
+            
+            position: relative;
+            animation: mymove1 5000ms forwards;
+        }
+
+        @keyframes mymove1 {
+            0%   {top: 0px; left: 0px; }
+            25%  {top: 100px; left: 0px; }
+            50%  {top: 100px; left: 100px;}
+            75%  {top: 100px; left: 0px; }
+            100% {top: 0px; left: 0px; } 
+        }
+
+        .animate2{
+            
+            position: relative;
+            animation: mymove2 5000ms forwards;
+        }
+
+        @keyframes mymove2 {
+            0%   {top: 0px; left: 0px;} 
+            25%  {top: -100px; left: 0px; }
+            50%  {top: 100px; left: 0px; }
+            75%  {top: 100px; left: 100px; }
+            100%   {top: 0px; left: 0px; } 
+        }
+
+        .animate4{
+            
+            position: relative;
+            animation: mymove4 5000ms forwards;
+        }
+
+        @keyframes mymove4 {
+            0%   {top: 0px; left: 0px; } 
+            25%  {top: 0px; left: -100px; }
+            50%  {top: 100px; left: 0px;}
+            75%  {top: 100px; left: 100px;}
+            100%   {top: 0px; left: 0px;} 
+        }
+
+
         #juego{
             width: 22rem;
             height: 22rem;
@@ -446,6 +506,8 @@ function isSolvable(puzzle, arr)
                 if(ev.target.tagName === "P")
                 {
                     idM = ev.target.parentElement.id;
+                    ev.target.parentElement.click();
+                    return 0;
                 }
                 else
                 {
@@ -457,25 +519,55 @@ function isSolvable(puzzle, arr)
                     if(moviments == 0)
                         empezarTiempo();
                     
+                    /*animar*/
+                    const ch = ev.target.children;
+                    let num;
+                    if(ev.target.tagName === "P")
+                        num = parseInt(ev.target.innerHTML);
+                    else
+                    {
+                        num = parseInt(ch[0].innerText);
+                    }
                         
-                    /*cambio todo el html*/
-                    let vacio = document.getElementById("pieza00");
-                    let mover = document.getElementById("pieza" + idM[idM.length - 2] + idM[idM.length - 1]);
 
-                    let idV = vacio.id;
-                    let textM = mover.innerHTML;
+                    let i = 0;
+                    
+                    if(vecinos.includes(num))
+                    {
+                        let trobat = false;
+                        while(trobat == false && i < 4)
+                        {
+                            if(vecinos[i] == num)
+                                trobat = true;
+                            i++;
+                        }
+                        
+                    }
+                    
+                    /*si es P darle .click al padre*/
+                    /*animar*/
+                        
 
-                    vacio.innerHTML = textM;
-                    mover.innerHTML = "<p></p>";
-
-
-                    vacio.id=mover.id;
-                    mover.id = idV;
-
-                    moviments++;
-                    document.getElementById("moviments").innerText = "Moviments: " + moviments.toString();
-
-                    comprobar();
+                    ev.target.classList.add("animate" + i.toString());
+                    setTimeout(function(){ ev.target.classList.remove("animate" + i.toString());                         
+                    }, 750);
+                    
+                    /*parte de hueco*/
+                    if(i==2 || i == 4)
+                    {
+                        document.getElementById("pieza00").classList.add(("animate" + (i-1).toString()));
+                        setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i-1).toString()); 
+                        cambiarHTML(idM);
+                        }, 750);
+                    }
+                    else
+                    {
+                        document.getElementById("pieza00").classList.add(("animate" + (i+1).toString()));
+                        setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i+1).toString());
+                        cambiarHTML(idM);
+                        }, 750);
+                    }
+                    
                 }
                    
             }
@@ -487,7 +579,27 @@ function isSolvable(puzzle, arr)
             
         }, false);
 
+        function cambiarHTML(idM)
+        {
+             /*cambio todo el html*/
+            let vacio = document.getElementById("pieza00");
+            let mover = document.getElementById("pieza" + idM[idM.length - 2] + idM[idM.length - 1]);
 
+            let idV = vacio.id;
+            let textM = mover.innerHTML;
+
+            vacio.innerHTML = textM;
+            mover.innerHTML = "<p></p>";
+
+
+            vacio.id=mover.id;
+            mover.id = idV;
+
+            moviments++;
+            document.getElementById("moviments").innerText = "Moviments: " + moviments.toString();
+
+            comprobar();
+        }
 
     </script>
 </head>
