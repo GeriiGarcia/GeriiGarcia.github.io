@@ -83,6 +83,8 @@
         }
 
 
+
+
         #juego{ 
             width: 22rem;
             height: 22rem;
@@ -153,6 +155,20 @@
         #stats p{
             width: 8rem;
             margin: auto 0.1rem auto 0.1rem;
+        }
+
+        #hueco{
+            margin: 1rem auto;
+            width: 15rem;
+            height: max-content;
+            padding: 0.75rem;
+            background-color: #d8dbe0;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000000;
+            text-align: center;
+            border: none;
+            font-size: 18px;
         }
 
         /*encabezado----------------------------------------------------------------------------------------------*/
@@ -280,7 +296,7 @@
         let fin = true;
         let moviments = 0;
         let time = 0;
-        let animacionActivada = false;
+        let animacionActivada = true;
 
 
 function getInvCount(arr) {
@@ -706,6 +722,12 @@ function isSolvable(puzzle, arr)
         Jugar
     </button>
 
+    <button onclick="cambiarHueco();" id="hueco">
+        <input type = 'checkbox'>
+        <span class = 'slider'></span>
+        Mover Vecino Activado
+    </button>
+
 </body>
 
 <script>
@@ -753,6 +775,16 @@ function isSolvable(puzzle, arr)
         }
     }
 
+    function isMovile(){
+        let movile = new Boolean;
+        movile = false;
+        let navegador = navigator.userAgent;
+        if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+            movile = true
+        }
+        return movile;
+    }
+
 
     /*al abrir*/
     window.onload = function arraglao(){
@@ -767,9 +799,30 @@ function isSolvable(puzzle, arr)
             strikes = strikes2
             document.getElementById("strikes").innerHTML = "Strikes: " + strikes2;
         }
+
+        if(isMovile()){
+            document.getElementById("hueco").style.display = "none";
+        }
+
+
     
     }
 
+    function cambiarHueco()
+    {
+        moverPieza = !moverPieza;
+        if(moverPieza)
+        {
+            document.getElementById("hueco").style.backgroundColor = "rgb(160,160,000)"; 
+            document.getElementById("hueco").innerText = "Mover Hueco Activado";
+        }
+        else
+        {
+            document.getElementById("hueco").style.backgroundColor = '#d8dbe0';
+            document.getElementById("hueco").innerText = "Mover Vecino Activado";
+        }
+
+    }
 
 
     /*flexas------------------------------------------------------------------------------*/
