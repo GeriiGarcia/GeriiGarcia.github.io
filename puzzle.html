@@ -29,7 +29,7 @@
         .animate3{ 
            
             position: relative;
-            animation: mymove3 5000ms forwards;
+            animation: mymove3 1000ms forwards;
         }
 
         @keyframes mymove3 {
@@ -43,7 +43,7 @@
         .animate1{
             
             position: relative;
-            animation: mymove1 5000ms forwards;
+            animation: mymove1 1000ms forwards;
         }
 
         @keyframes mymove1 {
@@ -57,7 +57,7 @@
         .animate2{
             
             position: relative;
-            animation: mymove2 5000ms forwards;
+            animation: mymove2 1000ms forwards;
         }
 
         @keyframes mymove2 {
@@ -71,7 +71,7 @@
         .animate4{
             
             position: relative;
-            animation: mymove4 5000ms forwards;
+            animation: mymove4 1000ms forwards;
         }
 
         @keyframes mymove4 {
@@ -550,7 +550,7 @@ function isSolvable(puzzle, arr)
 
                     ev.target.classList.add("animate" + i.toString());
                     setTimeout(function(){ ev.target.classList.remove("animate" + i.toString());                         
-                    }, 750);
+                    }, 150);
                     
                     /*parte de hueco*/
                     if(i==2 || i == 4)
@@ -558,14 +558,14 @@ function isSolvable(puzzle, arr)
                         document.getElementById("pieza00").classList.add(("animate" + (i-1).toString()));
                         setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i-1).toString()); 
                         cambiarHTML(idM);
-                        }, 750);
+                        }, 150);
                     }
                     else
                     {
                         document.getElementById("pieza00").classList.add(("animate" + (i+1).toString()));
                         setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i+1).toString());
                         cambiarHTML(idM);
-                        }, 750);
+                        }, 150);
                     }
                     
                 }
