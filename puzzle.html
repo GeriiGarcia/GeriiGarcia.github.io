@@ -280,6 +280,7 @@
         let fin = true;
         let moviments = 0;
         let time = 0;
+        let animacionActivada = false;
 
 
 function getInvCount(arr) {
@@ -556,26 +557,33 @@ function isSolvable(puzzle, arr)
                     /*si es P darle .click al padre*/
                     /*animar*/
                         
-
-                    ev.target.classList.add("animate" + i.toString());
-                    setTimeout(function(){ ev.target.classList.remove("animate" + i.toString());                         
-                    }, 75);
-                    
-                    /*parte de hueco*/
-                    if(i==2 || i == 4)
+                    if(animacionActivada)
                     {
-                        document.getElementById("pieza00").classList.add(("animate" + (i-1).toString()));
-                        setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i-1).toString()); 
-                        cambiarHTML(idM);
+                        ev.target.classList.add("animate" + i.toString());
+                        setTimeout(function(){ ev.target.classList.remove("animate" + i.toString());                         
                         }, 75);
+
+                        /*parte de hueco*/
+                        if(i==2 || i == 4)
+                        {
+                            document.getElementById("pieza00").classList.add(("animate" + (i-1).toString()));
+                            setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i-1).toString()); 
+                            cambiarHTML(idM);
+                            }, 75);
+                        }
+                        else
+                        {
+                            document.getElementById("pieza00").classList.add(("animate" + (i+1).toString()));
+                            setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i+1).toString());
+                            cambiarHTML(idM);
+                            }, 75);
+                        }
                     }
                     else
                     {
-                        document.getElementById("pieza00").classList.add(("animate" + (i+1).toString()));
-                        setTimeout(function(){ document.getElementById("pieza00").classList.remove("animate" + (i+1).toString());
-                        cambiarHTML(idM);
-                        }, 75);
+                        cambiarHTML(idM); 
                     }
+                    
                     
                 }
                    
